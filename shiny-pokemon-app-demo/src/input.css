@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px;
+  min-width: 300px;
+  max-width: 590px;
+  background-color: rgb(240, 240, 240);
+}
+
+@media screen and (min-width: 600px) {
+  
+  body {
+    margin: auto;
+  }
+}
