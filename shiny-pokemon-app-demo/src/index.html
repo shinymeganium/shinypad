@@ -7,44 +7,57 @@
   <link rel="stylesheet" href="./output.css">
 </head>
 <body>
-  <header class="mt-5 mb-20">
+  <header class="mt-5 mb-20 flex flex-row justify-evenly">
+    <button class="hidden hover:bg-gray-400" id="mobile-nav-icon" onclick="showNavbar()">M</button>
     <h1 class="text-3xl font-bold text-center">Shiny Pokémon Tracker</h1>
   </header>
 
-  <nav class="flex flex-col gap-5">
-    <button class="hidden text-3xl hover:bg-gray-400">Continue A New Hunt</button>
-    <button class="text-3xl hover:bg-gray-400">Start A New Hunt</button>
-    <button class="text-3xl hover:bg-gray-400" onclick="showSection('section2')">Target List</button>
-    <button class="text-3xl hover:bg-gray-400">Caught Shinies</button>
+  <nav class="flex flex-col gap-5" id="nav">
+    <button class="hidden text-3xl hover:bg-gray-400" id="continuenav" onclick="openSelection('continueh')">Continue The Hunt</button>
+    <button class="text-3xl hover:bg-gray-400" onclick="openSelection('newh')">Start A New Hunt</button>
+    <button class="text-3xl hover:bg-gray-400" onclick="openSelection('targetl')">Target List</button>
+    <button class="text-3xl hover:bg-gray-400" onclick="openSelection('caughtl')">Caught Shinies</button>
+    <button class="text-3xl hover:bg-gray-400" onclick="openSelection('info')">Info</button>
   </nav>
 
-  <main class="">
+  <main class="mb-20">
 
-    <section class="text-center">1</section>
+    <section class="hidden text-center" id="continueh">
+      <p class="" id="pkmcard"></p>
+      <p class="" id="methodcard"></p>
+      <p class="">Count: </p>
+      <button class="bg-white">+</button>
+      <button class="bg-white">-</button>
+    </section>
 
-    <section class="hidden text-center" id="section2">2 this one was hidden</section>
+    <section class="hidden text-center" id="newh">
+      <form id="pkmnform">
+        <label for="pkm">Pokémon</label><br>
+        <input type="text" id="pkm" name="pkm" class="bg-white"><br>
+        <label for="method">Method</label><br>
+        <select name="method" id="method" class="bg-white">
+          <option value="sele">Select</option>
+          <option value="encounters">Wild Encounters</option>
+          <option value="masuda">Masuda Method</option>
+          <option value="sos">S.O.S</option>
+        </select><br><br>
+        <!-- <input type="submit" value="Start" class="bg-white" onclick="createHuntCard()"> -->
+      </form>
+      <button class="bg-white" onclick="createHuntCard()">Start</button>
 
-    <section class="text-center">3</section>
+    </section>
 
-    <section class="text-center">4</section>
+    <section class="hidden text-center" id="targetl">target list</section>
+
+    <section class="hidden text-center" id="caughtl">caught shinies</section>
+
+    <section class="hidden text-center" id="info">info</section>
 
   </main>
 
   <footer class="">
     <p class="">This is footer</p>
   </footer>
-
-  <div class="border">
-    <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum harum perferendis suscipit atque est, labore aliquam veniam iure cupiditate, consequatur alias commodi voluptatibus magnam, nulla quae provident laborum? Saepe, numquam!</p>
-  </div>
-
-  <div class="border">
-    <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum harum perferendis suscipit atque est, labore aliquam veniam iure cupiditate, consequatur alias commodi voluptatibus magnam, nulla quae provident laborum? Saepe, numquam!</p>
-  </div>
-
-  <div class="border">
-    <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum harum perferendis suscipit atque est, labore aliquam veniam iure cupiditate, consequatur alias commodi voluptatibus magnam, nulla quae provident laborum? Saepe, numquam!</p>
-  </div>
 
   <script src="main.js"></script> 
 </body>

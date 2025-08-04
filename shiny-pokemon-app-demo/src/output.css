@@ -8,6 +8,7 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-white: #fff;
     --spacing: 0.25rem;
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
@@ -162,35 +163,11 @@
   }
 }
 @layer utilities {
-  .container {
-    width: 100%;
-    @media (width >= 40rem) {
-      max-width: 40rem;
-    }
-    @media (width >= 48rem) {
-      max-width: 48rem;
-    }
-    @media (width >= 64rem) {
-      max-width: 64rem;
-    }
-    @media (width >= 80rem) {
-      max-width: 80rem;
-    }
-    @media (width >= 96rem) {
-      max-width: 96rem;
-    }
-  }
-  .mt-3 {
-    margin-top: calc(var(--spacing) * 3);
-  }
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
   }
   .mb-20 {
     margin-bottom: calc(var(--spacing) * 20);
-  }
-  .block {
-    display: block;
   }
   .flex {
     display: flex;
@@ -201,6 +178,12 @@
   .table {
     display: table;
   }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
   .border-collapse {
     border-collapse: collapse;
   }
@@ -210,8 +193,11 @@
   .flex-col {
     flex-direction: column;
   }
-  .gap-2 {
-    gap: calc(var(--spacing) * 2);
+  .flex-row {
+    flex-direction: row;
+  }
+  .justify-evenly {
+    justify-content: space-evenly;
   }
   .gap-5 {
     gap: calc(var(--spacing) * 5);
@@ -219,6 +205,9 @@
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+  .bg-white {
+    background-color: var(--color-white);
   }
   .text-center {
     text-align: center;
@@ -255,6 +244,9 @@ body {
   min-width: 300px;
   max-width: 590px;
   background-color: rgb(240, 240, 240);
+}
+.mobile-links {
+  display: block;
 }
 @media screen and (min-width: 600px) {
   body {

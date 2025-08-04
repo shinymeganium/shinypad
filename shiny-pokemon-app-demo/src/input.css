@@ -11,6 +11,10 @@ body {
   background-color: rgb(240, 240, 240);
 }
 
+.mobile-links {
+  display: block;
+}
+
 @media screen and (min-width: 600px) {
   
   body {
