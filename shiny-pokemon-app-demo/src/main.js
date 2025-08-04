@@ -28,12 +28,11 @@ function showNavbar() {
 
   // check if in current hunt there is no current hunt
   const pkmn = document.getElementById("pkm").innerHTML;
-  const method = document.getElementById("method").innerHTML;
-  if (pkmn != "")
-    document.getElementById("continuenav").classList.toggle("hidden");
+  if (pkmn != "" && document.getElementById("continue").classList.contains("hidden"))
+    document.getElementById("continueh").classList.remove("hidden");
 }
 
-// collect data from form, close current selection, open another
+// collect data from form, close new hunt, open continue hunt
 function createHuntCard() {
   let pokemon = document.getElementById("pkm").value;
   let method = document.getElementById("method").value;
@@ -43,4 +42,6 @@ function createHuntCard() {
 
   document.getElementById("newh").classList.toggle("hidden");
   document.getElementById("continueh").classList.toggle("hidden");
-} // continue hunt doesn't show up after creating a new hunt card
+  document.getElementById("continuenav").classList.toggle("hidden");
+  document.getElementById("pkmnform").reset(); 
+}

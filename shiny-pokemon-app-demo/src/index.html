@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="./output.css">
 </head>
 <body>
+  <!-- header -->
   <header class="mt-5 mb-20 flex flex-row justify-evenly">
     <button class="hidden hover:bg-gray-400" id="mobile-nav-icon" onclick="showNavbar()">M</button>
     <h1 class="text-3xl font-bold text-center">Shiny Pokémon Tracker</h1>
   </header>
 
+  <!-- navbar -->
   <nav class="flex flex-col gap-5" id="nav">
     <button class="hidden text-3xl hover:bg-gray-400" id="continuenav" onclick="openSelection('continueh')">Continue The Hunt</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('newh')">Start A New Hunt</button>
@@ -20,16 +22,19 @@
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('info')">Info</button>
   </nav>
 
+  <!-- main content -->
   <main class="mb-20">
 
+    <!-- continue hunt -->
     <section class="hidden text-center" id="continueh">
       <p class="" id="pkmcard"></p>
       <p class="" id="methodcard"></p>
       <p class="">Count: </p>
-      <button class="bg-white">+</button>
       <button class="bg-white">-</button>
+      <button class="bg-white">+</button>
     </section>
 
+    <!-- new hunt -->
     <section class="hidden text-center" id="newh">
       <form id="pkmnform">
         <label for="pkm">Pokémon</label><br>
@@ -47,14 +52,18 @@
 
     </section>
 
+    <!-- target list -->
     <section class="hidden text-center" id="targetl">target list</section>
 
+    <!-- caught list -->
     <section class="hidden text-center" id="caughtl">caught shinies</section>
 
+    <!-- info -->
     <section class="hidden text-center" id="info">info</section>
 
   </main>
 
+  <!-- footer -->
   <footer class="">
     <p class="">This is footer</p>
   </footer>
