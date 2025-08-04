@@ -1,4 +1,19 @@
+// section id values
 const selections = ["continueh", "newh", "targetl", "caughtl", "info"];
+
+let targetPkmn = [];
+let caughtPkmn = [];
+
+class Target {
+  constructor(name, method) {
+    this.name = name;
+    this.method = method;
+  }
+}
+
+class Pokemon extends Target {
+
+}
 
 // debug function
 // section name: string
@@ -36,6 +51,8 @@ function showNavbar() {
 function createHuntCard() {
   let pokemon = document.getElementById("pkm").value;
   let method = document.getElementById("method").value;
+
+  localStorage.setItem();
 
   document.getElementById("pkmcard").innerHTML = "Pokémon:" + pokemon;
   document.getElementById("methodcard").innerHTML = "Method: " + method;
