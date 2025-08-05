@@ -52,7 +52,10 @@
     </section>
 
     <!-- target list -->
-    <section class="hidden text-center" id="targetl">target list</section>
+    <section class="hidden text-center" id="targetl">
+      <button onclick="updateTargetList()">show</button>
+      <ul id="tarl"></ul>
+    </section>
 
     <!-- caught list -->
     <section class="hidden text-center" id="caughtl">caught shinies</section>
@@ -64,7 +67,9 @@
 
   <!-- footer -->
   <footer class="">
-    <p class="">This is footer</p>
+    <p class="my-5">This is footer</p>
+    <button class="hover:bg-gray-400" onclick="clearLS()">clear local storage</button><br>
+    <button class="hover:bg-gray-400" onclick="testTarget()">target creation test</button>
   </footer>
 
   <script src="main.js"></script> 
