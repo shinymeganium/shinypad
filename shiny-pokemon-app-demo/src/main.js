@@ -1,39 +1,48 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
+
+function checkList(key) {
+  if (JSON.parse(localStorage.getItem(key)) != null)
+    return JSON.parse(localStorage.getItem(key))
+  else
+    return []
+}
 // section id values
 const selections = ["continueh", "newh", "targetl", "caughtl", "info"];
 
-let targetPkmn = [];
+let targetPkmn = checkList("targetList");
 let caughtPkmn = [];
 
-class Target {
-  constructor(name, method, count) {
-    this._name = name;
-    this._method = method;
-    this._encounters = count;
-  }
-  get name() {
-    return this._name;
-  }
-  set name(x) {
-    this._name = x;
-  }
-  get method() {
-    return this._method;
-  }
-  set method(x) {
-    this._method = x;
-  }
-  get count() {
-    return this._encounters;
-  }
-  set count(x) {
-    this._encounters = x;
-  }
-}
+// check if localstorage has something in it
 
-class Pokemon extends Target {
+// class Target {
+//   constructor(name, method, count) {
+//     this._name = name;
+//     this._method = method;
+//     this._encounters = count;
+//   }
+//   get name() {
+//     return this._name;
+//   }
+//   set name(x) {
+//     this._name = x;
+//   }
+//   get method() {
+//     return this._method;
+//   }
+//   set method(x) {
+//     this._method = x;
+//   }
+//   get count() {
+//     return this._encounters;
+//   }
+//   set count(x) {
+//     this._encounters = x;
+//   }
+// }
 
-}
+// class Pokemon extends Target {
+
+// }
 
 // debug function
 // section name: string
@@ -42,15 +51,15 @@ class Pokemon extends Target {
 //   element.classList.toggle("hidden");
 // }
 
-function testTarget() {
-  let test = new Target("asd", "zzz", 0);
+// function testTarget() {
+//   let test = new Target("asd", "zzz", 0);
 
-  console.log(test.name);
-  console.log(test.method);
-  console.log(test.count);
+//   console.log(test.name);
+//   console.log(test.method);
+//   console.log(test.count);
 
-  test = null;
-}
+//   test = null;
+// }
 
 // for testing
 function clearLS() {
@@ -88,36 +97,59 @@ function showNavbar() {
     document.getElementById("continueh").classList.remove("hidden");
 }
 
-function updateTargetList() {
-  let data = localStorage.getItem("targetList");
-  let list = document.getElementById("tarl");
-  if (data != null){
-    for (i in data) {
-      console.log(i.name);
-    }
+// add/substract to encounter count
+function changeCount(symbol) {
+  let num = Number(document.getElementById("countcard").innerHTML);
+  if (symbol == '+') {
+    document.getElementById("countcard").innerHTML = String(num + 1);
   }
-  else
-    console.log("no data");
+  else if (symbol == '-') {
+    document.getElementById("countcard").innerHTML = String(num - 1);
+  }
 }
 
-// collect data from form, close new hunt, open continue hunt, reset form
-// create new target, set the values with element data,
-// save target to array, save array to localstorage
-function createHuntCard() {
+// fetch data from new hunt form, return an array that has
+// id, pokemon, method and date
+function getFormData() {
+  let data = [];
+  let id = targetPkmn.length;
   let pokemon = document.getElementById("pkm").value;
   let method = document.getElementById("method").value;
-  let target = new Target(pokemon, method, 0);
+  let date = document.getElementById("date").value;
+
+  data.push(id, pokemon, method, 0, date);
+  return data;
+}
+
+// set up hunt card data
+function createHuntCard() {
+  let target = getFormData();
+
+  document.getElementById("idcard").innerHTML = target[0];
+  document.getElementById("pkmcard").innerHTML = target[1];
+  document.getElementById("methodcard").innerHTML = target[2];
 
   targetPkmn.push(target);
+  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
+}
 
-  localStorage.setItem("targetList", targetPkmn);
+// close new hunt, open continue hunt, reset form
+// save target to array, save array to localstorage
+function showHuntCard() {
+  createHuntCard();
 
-  document.getElementById("pkmcard").innerHTML = "Pokémon:" + target.name;
-  document.getElementById("methodcard").innerHTML = "Method: " + target.method;
-
+  // change to ([]) ??
   //toggleMultiple("newh", "continueh", "continuenav");
   document.getElementById("newh").classList.toggle("hidden");
   document.getElementById("continueh").classList.toggle("hidden");
   document.getElementById("continuenav").classList.toggle("hidden");
   document.getElementById("pkmnform").reset();
+}
+
+// debug fun
+function showTargetsInLS() {
+  if (JSON.parse(localStorage.getItem("targetList")) != null)
+    console.log(JSON.parse(localStorage.getItem("targetList")));
+  else
+    console.log("nothing");
 }

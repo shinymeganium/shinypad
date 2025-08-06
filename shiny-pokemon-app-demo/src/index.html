@@ -1,3 +1,5 @@
+<!-- TODO if theres data in ls show continue hunt -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,11 +29,12 @@
 
     <!-- continue hunt -->
     <section class="hidden text-center" id="continueh">
-      <p class="" id="pkmcard"></p>
-      <p class="" id="methodcard"></p>
-      <p class="">Count: </p>
-      <button class="bg-white">-</button>
-      <button class="bg-white">+</button>
+      <p class="">#<span id="idcard"></span></p>
+      <p class="">Pokémon: <span id="pkmcard"></span></p>
+      <p class="">Method: <span id="methodcard"></span></p>
+      <p class="">Count: <span id="countcard">0</span></p>
+      <button class="bg-white hover:bg-gray-400" onclick="changeCount('-')">-</button>
+      <button class="bg-white hover:bg-gray-400" onclick="changeCount('+')">+</button>
     </section>
 
     <!-- new hunt -->
@@ -45,15 +48,17 @@
           <option value="Wild Encounters">Wild Encounters</option>
           <option value="Masuda Method">Masuda Method</option>
           <option value="S.O.S">S.O.S</option>
-        </select><br><br>
+        </select><br>
+        <label for="date">Hunt started:</label><br>
+        <input type="date" name="date" id="date" class="bg-white"><br><br>
       </form>
-      <button class="bg-white hover:bg-gray-400" onclick="createHuntCard()">Start</button>
+      <button class="bg-white hover:bg-gray-400" onclick="showHuntCard()">Start</button>
 
     </section>
 
     <!-- target list -->
     <section class="hidden text-center" id="targetl">
-      <button onclick="updateTargetList()">show</button>
+      <!-- <button onclick="updateTargetList()">show</button> function doesnt exist anymore -->
       <ul id="tarl"></ul>
     </section>
 
@@ -69,7 +74,7 @@
   <footer class="">
     <p class="my-5">This is footer</p>
     <button class="hover:bg-gray-400" onclick="clearLS()">clear local storage</button><br>
-    <button class="hover:bg-gray-400" onclick="testTarget()">target creation test</button>
+    <button class="hover:bg-gray-400" onclick="showTargetsInLS()">print localstorage target list</button>
   </footer>
 
   <script src="main.js"></script> 
