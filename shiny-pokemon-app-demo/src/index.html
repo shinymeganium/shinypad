@@ -8,7 +8,7 @@
   <title>Shiny Pokémon Tracker</title>
   <link rel="stylesheet" href="./output.css">
 </head>
-<body>
+<body onload="checkCurrentHunt()">
   <!-- header -->
   <header class="mt-5 mb-20 flex flex-row justify-evenly">
     <button class="hidden hover:bg-gray-400" id="mobile-nav-icon" onclick="showNavbar()">M</button>
@@ -35,6 +35,7 @@
       <p class="">Count: <span id="countcard">0</span></p>
       <button class="bg-white hover:bg-gray-400" onclick="changeCount('-')">-</button>
       <button class="bg-white hover:bg-gray-400" onclick="changeCount('+')">+</button>
+      <p class="">Change target</p>
     </section>
 
     <!-- new hunt -->
@@ -58,7 +59,7 @@
 
     <!-- target list -->
     <section class="hidden text-center" id="targetl">
-      <!-- <button onclick="updateTargetList()">show</button> function doesnt exist anymore -->
+      <button class="hover:bg-gray-400" onclick="showTargetList()">show</button>
       <ul id="tarl"></ul>
     </section>
 

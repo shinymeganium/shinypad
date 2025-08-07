@@ -1,16 +1,28 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
-
 function checkList(key) {
   if (JSON.parse(localStorage.getItem(key)) != null)
-    return JSON.parse(localStorage.getItem(key))
+    return JSON.parse(localStorage.getItem(key));
   else
-    return []
+    return [];
 }
+
 // section id values
 const selections = ["continueh", "newh", "targetl", "caughtl", "info"];
 
 let targetPkmn = checkList("targetList");
 let caughtPkmn = [];
+
+// call on load if there is a current hunt id
+function checkCurrentHunt() {
+  if (JSON.parse(localStorage.getItem("currentHuntID")) != null) {
+    let index = localStorage.getItem("currentHuntID");
+    document.getElementById("idcard").innerHTML = targetPkmn[index][0];
+    document.getElementById("pkmcard").innerHTML = targetPkmn[index][1];
+    document.getElementById("methodcard").innerHTML = targetPkmn[index][2];
+    document.getElementById("continuenav").classList.remove("hidden");
+  }
+}
+
 
 // check if localstorage has something in it
 
@@ -118,6 +130,7 @@ function getFormData() {
   let date = document.getElementById("date").value;
 
   data.push(id, pokemon, method, 0, date);
+  localStorage.setItem("currentHuntID", JSON.stringify(id));
   return data;
 }
 
@@ -142,11 +155,30 @@ function showHuntCard() {
   //toggleMultiple("newh", "continueh", "continuenav");
   document.getElementById("newh").classList.toggle("hidden");
   document.getElementById("continueh").classList.toggle("hidden");
-  document.getElementById("continuenav").classList.toggle("hidden");
+  if (JSON.parse(localStorage.getItem("currentHuntID")) == null)
+    document.getElementById("continuenav").classList.toggle("hidden");
   document.getElementById("pkmnform").reset();
 }
 
-// debug fun
+function showTargetList() {
+  console.log("asd");
+  let list = document.getElementById("tarl");
+  
+  if (targetPkmn.length > 0) {
+    targetPkmn.forEach((x) => {
+      let li = document.createElement("li");
+      li.innerText = x[1];
+      list.appendChild(li);
+    });
+  }
+  else {
+    let li = document.createElement("li");
+      li.innerText = "list empty";
+      list.appendChild(li);
+  }
+}
+
+// debug func
 function showTargetsInLS() {
   if (JSON.parse(localStorage.getItem("targetList")) != null)
     console.log(JSON.parse(localStorage.getItem("targetList")));
