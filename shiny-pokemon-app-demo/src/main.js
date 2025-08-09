@@ -82,7 +82,7 @@ function clearLS() {
 // toggles selection's visibility, hides mobile nav bar, reveals nav icon
  function openSelection(sectionID) {
   document.getElementById(sectionID).classList.toggle("hidden");
-  document.getElementById("nav").classList.add("hidden");
+  document.getElementById("nav").classList.toggle("hidden");
   document.getElementById("mobile-nav-icon").classList.toggle("hidden");
 }
 
@@ -94,7 +94,7 @@ function toggleMultiple(selections) {
 
 // manage mobile nav bar visibility
 function showNavbar() {
-  document.getElementById("nav").classList.remove("hidden");
+  document.getElementById("nav").classList.toggle("hidden");
 
   // if an element is visible, hide it by toggling hidden class
   for (let i = 0; i < selections.length; i++) {
@@ -155,13 +155,12 @@ function showHuntCard() {
   //toggleMultiple("newh", "continueh", "continuenav");
   document.getElementById("newh").classList.toggle("hidden");
   document.getElementById("continueh").classList.toggle("hidden");
-  if (JSON.parse(localStorage.getItem("currentHuntID")) == null)
-    document.getElementById("continuenav").classList.toggle("hidden");
+  if (JSON.parse(localStorage.getItem("currentHuntID")) != null)
+    document.getElementById("continuenav").classList.remove("hidden");
   document.getElementById("pkmnform").reset();
 }
 
 function showTargetList() {
-  console.log("asd");
   let list = document.getElementById("tarl");
   
   if (targetPkmn.length > 0) {
