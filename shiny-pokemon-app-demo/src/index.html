@@ -17,7 +17,7 @@
   <nav class="flex flex-col gap-5" id="nav">
     <button class="hidden text-3xl hover:bg-gray-400" id="continuenav" onclick="openSelection('continueh')">Continue The Hunt</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('newh')">Start A New Hunt</button>
-    <button class="text-3xl hover:bg-gray-400" onclick="openSelection('targetl')">Target List</button>
+    <button class="text-3xl hover:bg-gray-400" onclick="showTargetList()">Target List</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('caughtl')">Caught Shinies</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('info')">Info</button>
   </nav>
@@ -27,10 +27,11 @@
 
     <!-- continue hunt -->
     <section class="hidden text-center" id="continueh">
+      <img class="block" id="imgcard" src="" alt="image here">
       <p class="">#<span id="idcard"></span></p>
       <p class="">Pokémon: <span id="pkmcard"></span></p>
       <p class="">Method: <span id="methodcard"></span></p>
-      <p class="">Count: <span id="countcard">0</span></p>
+      <p class="">Count: <span id="countcard"></span></p>
       <button class="bg-white hover:bg-gray-400" onclick="changeCount('-')">-</button>
       <button class="bg-white hover:bg-gray-400" onclick="changeCount('+')">+</button>
       <p class="">Change target</p>
@@ -57,7 +58,7 @@
 
     <!-- target list -->
     <section class="hidden text-center" id="targetl">
-      <button class="hover:bg-gray-400" onclick="showTargetList()">show</button>
+      <!-- <button class="hover:bg-gray-400" onclick="showTargetList()">show</button> -->
       <ul id="tarl"></ul>
     </section>
 

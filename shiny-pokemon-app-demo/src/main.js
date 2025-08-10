@@ -7,12 +7,13 @@ function checkList(key) {
 }
 
 class Target {
-  constructor(id, img, pokemon, method, date) {
+  constructor(id, img, pokemon, method, date, count) {
     this.id = id;
     this.img = img;
     this.pokemon = pokemon;
     this.method = method;
     this.date = date;
+    this.count = count;
   }
 }
 
@@ -120,12 +121,17 @@ function showNavbar() {
 // add/substract to encounter count
 function changeCount(symbol) {
   let num = Number(document.getElementById("countcard").innerHTML);
+  let id = JSON.parse(localStorage.getItem("currentHuntID"));
   if (symbol == '+') {
     document.getElementById("countcard").innerHTML = String(num + 1);
+    targetPkmn[id].count = num;
   }
   else if (symbol == '-') {
     document.getElementById("countcard").innerHTML = String(num - 1);
+    targetPkmn[id].count = num;
   }
+  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
+  console.log(targetPkmn[id].count);
 }
 
 // fetch data from new hunt form, return an array that has
@@ -136,7 +142,7 @@ function getFormData() {
   let pokemon = document.getElementById("pkm").value;
   let method = document.getElementById("method").value;
   let date = document.getElementById("date").value;
-  let data = new Target(id, 0, pokemon, method, date);
+  let data = new Target(id, 0, pokemon, method, date, 0);
 
   localStorage.setItem("currentHuntID", JSON.stringify(data.id));
   return data;
@@ -149,6 +155,7 @@ function createHuntCard() {
   document.getElementById("idcard").innerHTML = target.id;
   document.getElementById("pkmcard").innerHTML = target.pokemon;
   document.getElementById("methodcard").innerHTML = target.method;
+  document.getElementById("countcard").innerHTML = target.count;
 
   targetPkmn.push(target);
   localStorage.setItem("targetList", JSON.stringify(targetPkmn));
@@ -183,6 +190,7 @@ function showTargetList() {
       li.innerText = "list empty";
       list.appendChild(li);
   }
+  openSelection("targetl");
 }
 
 // debug func
