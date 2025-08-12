@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-karantina: "Karantina", system-ui;
+  --color-susyblue: #5394BC;
+}
 
 body {
   display: flex;
@@ -6,8 +12,8 @@ body {
   justify-content: center;
   gap: 10px;
   margin: 10px;
-  min-width: 300px;
-  max-width: 580px;
+  /* min-width: 300px;
+  max-width: 580px; */
   background-color: rgb(240, 240, 240);
 }
 

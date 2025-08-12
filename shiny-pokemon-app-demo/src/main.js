@@ -1,4 +1,6 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
+
+// INSTEAD OF CLOSING EVERY DIV ALWAYS, JUST RELOAD THE PAGE WHEN U CLOSE A SECTION
 function checkList(key) {
   if (JSON.parse(localStorage.getItem(key)) != null)
     return JSON.parse(localStorage.getItem(key));
