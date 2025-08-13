@@ -7,6 +7,7 @@
   --color-susybutton: #4591BF;
   --color-susybuttonhover: #377093;
   --color-susygray: #8F8F8F;
+  --color-susylightgray: #F5F5F5;
 }
 
 .karantina-light {
@@ -28,11 +29,8 @@
 }
 
 body {
-  gap: 10px;
-  margin: 10px;
   min-width: 300px;
   max-width: 580px;
-  background-color: rgb(240, 240, 240);
 }
 
 .mobile-links {

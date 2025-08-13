@@ -21,6 +21,7 @@ class Target {
 
 // section id values
 const selections = ["continueh", "newh", "targetl", "caughtl", "info"];
+const headerTxt = ["continue hunt", "new hunt", "target list", "caught shinies", "info", "navigation"];
 
 let targetPkmn = checkList("targetList");
 let caughtPkmn = [];
@@ -35,7 +36,6 @@ function checkCurrentHunt() {
     document.getElementById("continuenav").classList.remove("hidden");
   }
 }
-
 
 // check if localstorage has something in it
 
@@ -92,11 +92,10 @@ function clearLS() {
   console.log("cleared localstorage");
 }
 
-// toggles selection's visibility, hides mobile nav bar, reveals nav icon
- function openSelection(sectionID) {
-  document.getElementById(sectionID).classList.toggle("hidden");
+function toggleSelections(arrayID) {
+  document.getElementById(selections[arrayID]).classList.toggle("hidden");
   document.getElementById("nav").classList.toggle("hidden");
-  document.getElementById("mobile-nav-icon").classList.toggle("hidden");
+  document.getElementById("header-text").innerHTML = headerTxt[arrayID];
 }
 
 // not working, find out why
@@ -107,17 +106,19 @@ function toggleMultiple(selections) {
 
 // manage mobile nav bar visibility
 function showNavbar() {
+  document.getElementById("header-text").innerHTML = headerTxt[headerTxt.length - 1];
   document.getElementById("nav").classList.toggle("hidden");
+  document.getElementById("tarl").innerHTML = ""; // clear target list
 
   // if an element is visible, hide it by toggling hidden class
   for (let i = 0; i < selections.length; i++) {
     if (!document.getElementById(selections[i]).classList.contains("hidden"))
       document.getElementById(selections[i]).classList.toggle("hidden");
-  }
-  document.getElementById("mobile-nav-icon").classList.toggle("hidden");
-  document.getElementById("tarl").innerHTML = ""; // clear target list
-
-
+    }
+  
+  // fix the redirect from navigation to index ADD A BOOLEAN
+  // if (!document.getElementById("nav").classList.contains("hidden"))
+  //   window.location.href = "index.html";
 }
 
 // add/substract to encounter count
@@ -192,7 +193,7 @@ function showTargetList() {
       li.innerText = "list empty";
       list.appendChild(li);
   }
-  openSelection("targetl");
+  toggleSelections(2);
 }
 
 // debug func
