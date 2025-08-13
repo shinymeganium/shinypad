@@ -6,20 +6,47 @@
   <title>Shiny Pokémon Tracker</title>
   <link rel="stylesheet" href="./output.css">
 </head>
-<body onload="checkCurrentHunt()">
+<body class="flex flex-col justify-between items-center h-screen bg-linear-to-b from-white to-susyblue" onload="checkCurrentHunt()">
   <!-- header -->
-  <header class="mt-5 mb-20 flex flex-row justify-evenly">
+  <!-- <header class="mt-5 mb-20 flex flex-row justify-evenly">
     <button class="hidden hover:bg-gray-400" id="mobile-nav-icon" onclick="showNavbar()">M</button>
     <h1 class="text-3xl font-bold text-center">Shiny Pokémon Tracker</h1>
+  </header> -->
+  <header class="s-custom-width h-[48px] bg-susyblue">
+    <div class="flex flex-row justify-between px-4 py-2 font-karantina karantina-regular text-white text-2xl">
+      <span>navigation</span>
+      <span>x</span>
+    </div>
   </header>
 
   <!-- navbar -->
-  <nav class="flex flex-col gap-5" id="nav">
+  <!-- <nav class="flex flex-col gap-5" id="nav">
     <button class="hidden text-3xl hover:bg-gray-400" id="continuenav" onclick="openSelection('continueh')">Continue The Hunt</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('newh')">Start A New Hunt</button>
     <button class="text-3xl hover:bg-gray-400" onclick="showTargetList()">Target List</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('caughtl')">Caught Shinies</button>
     <button class="text-3xl hover:bg-gray-400" onclick="openSelection('info')">Info</button>
+  </nav> -->
+  <nav class="flex flex-col gap-4" id="nav">
+    <button class="flex justify-center items-center w-[240px] h-[64px] rounded-4xl font-karantina text-4xl bg-susybutton text-center text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="openSelection('newh')">
+      continue the hunt
+    </button>
+
+    <button class="flex justify-center items-center w-[240px] h-[64px] rounded-4xl font-karantina text-4xl bg-susybutton text-center text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="openSelection('continueh')">
+      start a new hunt
+    </button>
+
+    <button class="flex justify-center items-center w-[240px] h-[64px] rounded-4xl font-karantina text-4xl bg-susybutton text-center text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="openSelection('continueh')">
+      Continue the Hunt
+    </button>
+
+    <button class="flex justify-center items-center w-[240px] h-[64px] rounded-4xl font-karantina text-4xl bg-susybutton text-center text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="openSelection('continueh')">
+      Continue the Hunt
+    </button>
+
+    <button class="flex justify-center items-center w-[240px] h-[64px] rounded-4xl font-karantina text-4xl bg-susybutton text-center text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="openSelection('continueh')">
+      Continue the Hunt
+    </button>
   </nav>
 
   <!-- main content -->

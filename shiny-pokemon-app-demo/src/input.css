@@ -4,21 +4,43 @@
 @theme {
   --font-karantina: "Karantina", system-ui;
   --color-susyblue: #5394BC;
+  --color-susybutton: #4591BF;
+  --color-susybuttonhover: #377093;
+  --color-susygray: #8F8F8F;
+}
+
+.karantina-light {
+  font-family: "Karantina", system-ui;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.karantina-regular {
+  font-family: "Karantina", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.karantina-bold {
+  font-family: "Karantina", system-ui;
+  font-weight: 700;
+  font-style: normal;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 10px;
   margin: 10px;
-  /* min-width: 300px;
-  max-width: 580px; */
+  min-width: 300px;
+  max-width: 580px;
   background-color: rgb(240, 240, 240);
 }
 
 .mobile-links {
   display: block;
+}
+
+.s-custom-width {
+  width: calc(100vw - 16px);
 }
 
 @media screen and (min-width: 600px) {
