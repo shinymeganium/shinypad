@@ -92,8 +92,14 @@ function clearLS() {
   console.log("cleared localstorage");
 }
 
+function toIndex() {
+  window.location.href = "index.html";
+}
+
 function toggleSelections(arrayID) {
   document.getElementById(selections[arrayID]).classList.toggle("hidden");
+  document.getElementById("close1").classList.toggle("hidden");
+  document.getElementById("close2").classList.toggle("hidden");
   document.getElementById("nav").classList.toggle("hidden");
   document.getElementById("header-text").innerHTML = headerTxt[arrayID];
 }
@@ -106,6 +112,8 @@ function toggleMultiple(selections) {
 
 // manage mobile nav bar visibility
 function showNavbar() {
+  document.getElementById("close1").classList.toggle("hidden");
+  document.getElementById("close2").classList.toggle("hidden");
   document.getElementById("header-text").innerHTML = headerTxt[headerTxt.length - 1];
   document.getElementById("nav").classList.toggle("hidden");
   document.getElementById("tarl").innerHTML = ""; // clear target list
@@ -114,11 +122,7 @@ function showNavbar() {
   for (let i = 0; i < selections.length; i++) {
     if (!document.getElementById(selections[i]).classList.contains("hidden"))
       document.getElementById(selections[i]).classList.toggle("hidden");
-    }
-  
-  // fix the redirect from navigation to index ADD A BOOLEAN
-  // if (!document.getElementById("nav").classList.contains("hidden"))
-  //   window.location.href = "index.html";
+  }
 }
 
 // add/substract to encounter count

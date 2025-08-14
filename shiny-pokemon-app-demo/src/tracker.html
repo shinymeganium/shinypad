@@ -6,11 +6,12 @@
   <title>Shiny Pokémon Tracker</title>
   <link rel="stylesheet" href="./output.css">
 </head>
-<body class="flex flex-col justify-between items-center min-h-screen bg-susylightgray" onload="checkCurrentHunt()">
+<body class="flex flex-col justify-between items-center min-h-screen bg-susylightgray poliwag-bg" onload="checkCurrentHunt()">
   <!-- header -->
   <header class="w-full h-12 px-3 flex flex-row justify-between items-center font-karantina text-white text-2xl bg-susyblue">
       <span id="header-text">navigation</span>
-      <button class="cursor-pointer hover:text-black" id="close" onclick="showNavbar()">x</button>
+      <button class="cursor-pointer hover:text-black" id="close1" onclick="toIndex()">x</button>
+      <button class="hidden cursor-pointer hover:text-black" id="close2" onclick="showNavbar()">x</button>
   </header>
 
   <!-- navbar -->

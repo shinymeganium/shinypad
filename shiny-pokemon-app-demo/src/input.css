@@ -33,12 +33,12 @@ body {
   max-width: 580px;
 }
 
-.mobile-links {
-  display: block;
-}
-
-.s-custom-width {
-  width: calc(100vw - 16px);
+.poliwag-bg {
+  background-image: url(/img/polly.png);
+  background-size: 25rem;
+  background-position: 50% 98%;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
 }
 
 @media screen and (min-width: 600px) {
