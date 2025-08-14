@@ -3,11 +3,11 @@
 
 @theme {
   --font-karantina: "Karantina", system-ui;
-  --color-susyblue: #5394BC;
-  --color-susybutton: #4591BF;
+  --color-susyblue: #4591BF;
   --color-susybuttonhover: #377093;
   --color-susygray: #8F8F8F;
   --color-susylightgray: #F5F5F5;
+  --color-susytext: #6C6C6C;
 }
 
 .karantina-light {
