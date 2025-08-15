@@ -7,6 +7,7 @@
   --color-susybuttonhover: #377093;
   --color-susygray: #8F8F8F;
   --color-susylightgray: #F5F5F5;
+  --color-susyborder : #F0F0F0;
   --color-susytext: #6C6C6C;
 }
 
@@ -35,7 +36,7 @@ body {
 
 .poliwag-bg {
   background-image: url(/img/polly.png);
-  background-size: 25rem;
+  background-size: 20rem;
   background-position: 50% 98%;
   background-repeat: no-repeat;
   background-blend-mode: overlay;

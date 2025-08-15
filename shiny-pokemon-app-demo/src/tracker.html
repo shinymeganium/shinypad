@@ -6,8 +6,9 @@
   <title>Shiny Pokémon Tracker</title>
   <link rel="stylesheet" href="./output.css">
 </head>
-<body class="flex flex-col justify-between items-center min-h-screen bg-susylightgray poliwag-bg" onload="checkCurrentHunt()">
+<body class="flex flex-col justify-between items-center min-h-screen overflow-auto bg-susylightgray poliwag-bg" onload="checkCurrentHunt()">
   <!-- header -->
+   <!-- add a hover where links show? -->
   <header class="w-full h-12 px-3 flex flex-row justify-between items-center font-karantina text-white text-2xl bg-susyblue">
       <span id="header-text">navigation</span>
       <button class="cursor-pointer hover:text-black" id="close1" onclick="toIndex()">x</button>
@@ -16,19 +17,19 @@
 
   <!-- navbar -->
   <nav class="flex flex-col gap-4" id="nav">
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="toggleSelections(0)">
+    <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="toggleSelections(0)">
       continue the hunt
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(1)">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(1)">
       start a new hunt
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showTargetList()">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showTargetList()">
       target list
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(3)">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(3)">
       shiny list
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(4)">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(4)">
       info
     </button>
   </nav>
@@ -38,20 +39,35 @@
 
     <!-- continue hunt -->
     <section class="hidden text-center" id="continueh">
-      <img class="block" id="imgcard" src="" alt="image here">
-      <p class="">#<span id="idcard"></span></p>
-      <p class="">Pokémon: <span id="pkmcard"></span></p>
-      <p class="">Method: <span id="methodcard"></span></p>
-      <p class="">Count: <span id="countcard"></span></p>
-      <button class="bg-white hover:bg-gray-400" onclick="changeCount('-')">-</button>
-      <button class="bg-white hover:bg-gray-400" onclick="changeCount('+')">+</button>
-      <p class="">Change target</p>
+      <h3 class="font-karantina karantina-bold tracking-[8%] text-5xl text-susytext mb-20">Currently hunting</h3>
+      <div class="flex flex-col items-center gap-3">
+        <img class="" id="imgcard" src="" alt="image here">
+        <p class="hidden">#<span id="idcard"></span></p>
+        <p class="font-karantina text-5xl text-white text-shadow-md text-shadow-susyblue" id="pkmcard"></p>
+        <p class="w-fit rounded-4xl px-4 bg-white border border-susyborder" id="methodcard"></p>
+        <p class="rounded-4xl px-4 bg-white">Hunt started <span id="datecard"></span></p>
+        <p class="rounded-4xl px-4 bg-white">Encounters</p>
+      </div>
+      <div class="w-45 flex flex-row justify-around m-auto">
+        <button class="w-9 h-9 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-9 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('-')">-</button>
+        <p id="countcard"></p>
+        <button class="w-9 h-9 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-9 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('+')">+</button>
+      </div>
+      <div class="">
+        <button class="w-20 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav">
+        PAUSE
+        </button>
+        <button class="w-20 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" >
+        STOP
+        </button><br><br>
+        <button class="w-30 h-10 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-10 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" >CHANGE HUNT</button>
+      </div>
     </section>
 
     <!-- new hunt -->
     <section class="hidden text-center" id="newh">
       <h3 class="font-karantina text-5xl text-susytext mb-20">Create a new hunt</h3>
-      <form id="pkmnform" class="flex flex-col text-susytext">
+      <form id="pkmnform" class="flex flex-col gap-2 text-susytext">
         <input type="text" id="pkm" name="pkm" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext" placeholder="Pokémon"><br>
         <select name="method" id="method" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext">
           <option value="Select">Method:</option>
@@ -61,10 +77,12 @@
         </select><br>
         <input type="text" name="date" id="date" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext" onfocus="this.type='date'" placeholder="Hunt started:"><br><br>
       </form>
+      add notes text field<br>
+      <button class="w-30 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="showHuntCard() ">
+        START
+      </button>
       <!-- <button class="bg-white hover:bg-gray-400" onclick="showHuntCard()">Start</button> -->
-      <button class="w-30 h-12 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white border drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="showHuntCard()">
-      START
-    </button>
+      
     </section>
 
     <!-- target list -->
@@ -83,6 +101,11 @@
 
   <!-- footer -->
   <footer class="">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
     <p class="my-5">This is footer</p>
     <button class="hover:bg-gray-400" onclick="clearLS()">clear local storage</button><br>
     <button class="hover:bg-gray-400" onclick="showTargetsInLS()">print localstorage target list</button>
