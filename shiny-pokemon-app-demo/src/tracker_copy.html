@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shiny Pokémon Tracker</title>
+  <link rel="stylesheet" href="./output.css">
+</head>
+<body class="flex flex-col justify-between items-center min-h-screen overflow-auto bg-susylightgray poliwag-bg" onload="">
+  <!-- header -->
+  <header class="w-full h-12 mb-15 px-3 flex flex-row justify-between items-center font-karantina text-white text-2xl bg-susyblue">
+      <span id="header-text">navigation</span>
+      <!-- use anonymous func to redirect to index -->
+      <button id="header-b1" class="cursor-pointer hover:text-black" onclick="( () => { window.location.href = 'index_copy.html' } )();">x</button>
+      <button id="header-b2" class="hidden cursor-pointer hover:text-black" onclick="toggleSelection('', 'navigation')">x</button>
+  </header>
+
+  <!-- navbar -->
+  <nav id="nav-mobile" class="flex flex-col gap-4">
+    <button id="" class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-current-hunt', 'current hunt')">
+      current hunt
+    </button>
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-new-hunt', 'new hunt')">
+      start a new hunt
+    </button>
+    <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('-', '-')">
+      change current hunt
+    </button>
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-target-list', 'target list')">
+      target list
+    </button>
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-shiny-list', 'shiny list')">
+      shiny list
+    </button>
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-info', 'info')">
+      info
+    </button>
+  </nav>
+
+  <!-- main content -->
+  <main class="mb-20">
+
+    <!-- current hunt -->
+    <section id="s-current-hunt" class="hidden text-center">
+      <h2 class="font-karantina karantina-bold tracking-[8%] text-5xl text-susytext mb-10">Currently hunting</h2>
+      <div class="flex flex-col items-center gap-3 mb-5 text-susytext">
+        <svg width="200" height="200" class="overflow-hidden">
+          <circle cx="100" cy="100" r="100" fill="rgba(217, 217, 217, 1)" />
+          <image x="5" y="-20" width="200" height="200" id="" href="/img/HOME0182_s.png" />
+      </svg>
+        <p class="hidden">#<span id=""></span></p>
+        <p class="font-karantina text-5xl text-white text-shadow-md text-shadow-susyblue" id=""></p>
+        <p class="h-8 leading-8 rounded-4xl px-4 bg-white border border-susyborder" id=""></p>
+        <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Hunt started <span id=""></span></p>
+        <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Encounters</p>
+      </div>
+      <div class="w-45 flex flex-row justify-around m-auto font-karantina text-center">
+        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('-')">-</button>
+        <p class="text-3xl text-susytext" id=""></p>
+        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">+</button>
+      </div>
+      <div class="mt-5">
+        <div class="flex justify-center gap-5 font-karantina text-2xl text-center text-white leading-12">
+          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          PAUSE
+          </button>
+          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          STOP
+          </button>
+        </div>
+        <button class="w-30 h-10 mt-3 rounded-4xl font-karantina text-2xl bg-gray-400 opacity-70 text-center leading-10 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover hover:opacity-60">CHANGE HUNT</button>
+      </div>
+    </section>
+
+    <!-- new hunt -->
+    <section id="s-new-hunt" class="hidden text-center">
+      <h2 class="font-karantina text-5xl text-susytext mb-20">Create a new hunt</h2>
+      <form id="form" class="flex flex-col gap-2 text-susytext">
+        <input type="text" id="pkm" name="pkm" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext" placeholder="Pokémon"><br>
+        <select name="method" id="method" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext">
+          <option value="Select">Method:</option>
+          <option value="Wild Encounters">Wild Encounters</option>
+          <option value="Masuda Method">Masuda Method</option>
+          <option value="S.O.S">S.O.S</option>
+        </select><br>
+        <input type="text" name="date" id="date" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext" onfocus="this.type='date'" placeholder="Hunt started:"><br>
+        <textarea name="notes" id="notes" class="w-65 h-24 rounded-4xl pt-2 px-4 bg-white placeholder:text-susytext resize-none" placeholder="Notes:"></textarea><br><br>
+      </form>
+      <button class="w-30 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="" onclick="">
+        START
+      </button>
+      <!-- <button class="bg-white hover:bg-gray-400" onclick="showHuntCard()">Start</button> -->
+      
+    </section>
+
+    <!-- target list -->
+    <section id="s-target-list" class="hidden text-center">
+      <!-- <button class="hover:bg-gray-400" onclick="showTargetList()">show</button> -->
+      <ul id=""></ul>
+      target list
+    </section>
+
+    <!-- shiny list -->
+    <section id="s-shiny-list" class="hidden text-center">
+      <ul id=""></ul>
+      shiny list
+    </section>
+
+    <!-- info -->
+    <section id="s-info" class="hidden text-center">info</section>
+
+  </main>
+
+  <!-- footer -->
+  <footer class="">
+    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, et. Itaque ad nihil quos aut odit sit est numquam, expedita quasi aperiam mollitia molestiae, maiores eaque aspernatur modi vel magni.</p> -->
+    <p class="my-5">This is footer copy!!!!</p>
+    <!-- <button class="hover:bg-gray-400" onclick="">clear local storage</button><br>
+    <button class="hover:bg-gray-400" onclick="">print localstorage target list</button><br>
+    <button class="hover:bg-gray-400" onclick="">print localstorage current hunt</button> -->
+  </footer>
+
+  <script src="main_copy.js"></script> 
+</body>
+</html>

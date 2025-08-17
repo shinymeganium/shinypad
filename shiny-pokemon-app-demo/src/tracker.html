@@ -17,16 +17,17 @@
 
   <!-- navbar -->
   <nav class="flex flex-col gap-4" id="nav">
-    <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="toggleSelections(0)">
-      continue the hunt
+    <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="curnav" onclick="toggleSelections(0)">
+      current hunt
     </button>
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(1)">
       start a new hunt
     </button>
+    <button class="">change current hunt</button>
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showTargetList()">
       target list
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(3)">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showShinyList()">
       shiny list
     </button>
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelections(4)">
@@ -37,8 +38,8 @@
   <!-- main content -->
   <main class="mb-20">
 
-    <!-- continue hunt -->
-    <section class="hidden text-center" id="continueh">
+    <!-- current hunt -->
+    <section class="hidden text-center" id="curh">
       <h3 class="font-karantina karantina-bold tracking-[8%] text-5xl text-susytext mb-10">Currently hunting</h3>
       <div class="flex flex-col items-center gap-3 mb-5 text-susytext">
         <svg width="200" height="200" class="overflow-hidden">
@@ -58,10 +59,10 @@
       </div>
       <div class="mt-5">
         <div class="flex justify-center gap-5 font-karantina text-2xl text-center text-white leading-12">
-          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover">
+          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showNavbar()">
           PAUSE
           </button>
-          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover">
+          <button class="w-20 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="stopHunt()">
           STOP
           </button>
         </div>
@@ -83,7 +84,7 @@
         <input type="text" name="date" id="date" class="w-65 h-8 rounded-4xl px-4 bg-white placeholder:text-susytext" onfocus="this.type='date'" placeholder="Hunt started:"><br><br>
       </form>
       add notes text field<br>
-      <button class="w-30 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="continuenav" onclick="showHuntCard() ">
+      <button class="w-30 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" id="curnav" onclick="showHuntCard() ">
         START
       </button>
       <!-- <button class="bg-white hover:bg-gray-400" onclick="showHuntCard()">Start</button> -->
@@ -97,7 +98,9 @@
     </section>
 
     <!-- caught list -->
-    <section class="hidden text-center" id="caughtl">caught shinies</section>
+    <section class="hidden text-center" id="caughtl">
+      <ul id="shinyl"></ul>
+    </section>
 
     <!-- info -->
     <section class="hidden text-center" id="info">info</section>

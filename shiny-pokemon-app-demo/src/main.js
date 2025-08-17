@@ -1,4 +1,8 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
+
+// NOTE: data saving only works currently if continue the hunt section is closed from header's x button
+// or the pause button
+// data will not be saved if page gets refreshed or closed
 function checkList(key) {
   if (JSON.parse(localStorage.getItem(key)) != null)
     return JSON.parse(localStorage.getItem(key));
@@ -18,11 +22,11 @@ class Target {
 }
 
 // section id values
-const selections = ["continueh", "newh", "targetl", "caughtl", "info"];
+const selections = ["curh", "newh", "targetl", "caughtl", "info"];
 const headerTxt = ["continue hunt", "new hunt", "target list", "caught shinies", "info", "navigation"];
 
 let targetPkmn = checkList("targetList");
-let caughtPkmn = [];
+let caughtPkmn = checkList("shinyList");
 let currentPkmn = null;
 
 // call on load if there is a current hunt id
@@ -34,10 +38,19 @@ function checkCurrentHunt() {
     document.getElementById("methodcard").innerHTML = currentH.method;
     document.getElementById("datecard").innerHTML = currentH.date;
     document.getElementById("countcard").innerHTML = currentH.count;
-    document.getElementById("continuenav").classList.toggle("hidden");
+    document.getElementById("curnav").classList.toggle("hidden");
   }
   else
     console.log("data not found");
+}
+
+function setCurrentHunt(stop) {
+  let currentH = JSON.parse(localStorage.getItem("currentH"));
+  targetPkmn[currentH.id].count = currentH.count;
+  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
+
+  if (stop)
+    return currentH;
 }
 
 function toIndex() {
@@ -59,13 +72,10 @@ function showNavbar() {
   document.getElementById("header-text").innerHTML = headerTxt[headerTxt.length - 1];
   document.getElementById("nav").classList.toggle("hidden");
   document.getElementById("tarl").innerHTML = ""; // clear target list
+  document.getElementById("shinyl").innerHTML = "";
 
-  if (!document.getElementById("continueh").classList.contains("hidden")) {
-    let currentH = JSON.parse(localStorage.getItem("currentH"));
-    targetPkmn[currentH.id].count = currentH.count;
-    localStorage.setItem("targetList", JSON.stringify(targetPkmn));
-    console.log("updated target list LS");
-  }
+  if (!document.getElementById("curh").classList.contains("hidden"))
+    setCurrentHunt(false);
 
   // if an element is visible, hide it by toggling hidden class
   for (let i = 0; i < selections.length; i++) {
@@ -91,6 +101,18 @@ function changeCount(symbol) {
   localStorage.setItem("currentH", JSON.stringify(currentH));
 }
 
+// save current hunt to caughtPkmn
+function stopHunt() {
+  let pokemon = setCurrentHunt(true);
+  targetPkmn.splice(pokemon.id, 1);
+  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
+  localStorage.removeItem("currentH");
+  caughtPkmn.push(pokemon);
+  localStorage.setItem("shinyList", JSON.stringify(caughtPkmn));
+  document.getElementById("curnav").classList.toggle("hidden");
+  
+}
+
 // fetch data from new hunt form, return an array that has
 function getFormData() {
   let id = targetPkmn.length;
@@ -99,8 +121,6 @@ function getFormData() {
   let date = document.getElementById("date").value;
   let data = new Target(id, 0, pokemon, method, date, 0);
 
-  // save target to ls as currentH
-  localStorage.setItem("currentH", JSON.stringify(data));
   return data;
 }
 
@@ -123,8 +143,8 @@ function createHuntCard() {
 function showHuntCard() {
   createHuntCard();
   document.getElementById("newh").classList.toggle("hidden");
-  document.getElementById("continueh").classList.toggle("hidden");
-  document.getElementById("continuenav").classList.remove("hidden");
+  document.getElementById("curh").classList.toggle("hidden");
+  document.getElementById("curnav").classList.remove("hidden");
   document.getElementById("pkmnform").reset();
 }
 
@@ -144,6 +164,24 @@ function showTargetList() {
       list.appendChild(li);
   }
   toggleSelections(2);
+}
+
+function showShinyList() {
+  let list = document.getElementById("shinyl");
+  
+  if (caughtPkmn.length > 0) {
+    caughtPkmn.forEach((x) => {
+      let li = document.createElement("li");
+      li.innerText = x.pokemon;
+      list.appendChild(li);
+    });
+  }
+  else {
+    let li = document.createElement("li");
+      li.innerText = "list empty";
+      list.appendChild(li);
+  }
+  toggleSelections(3);
 }
 
 // for testing--------------------------------------------------
