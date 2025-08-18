@@ -6,7 +6,7 @@ class Target {
     this.id = 0;
     this.pokemon = "";
     this.method = "";
-    this.started = 0;
+    this.started = "";
     this.notes = "";
     this.encounters = 0;
   }
@@ -66,19 +66,21 @@ function createNewTarget() {
   target.id = target.getID();
   target.pokemon = document.getElementById("pkmn").value;
   target.method = document.getElementById("method").value;
-  target.date = document.getElementById("date").value;
+  target.started = document.getElementById("started").value;
   target.notes = document.getElementById("notes").value;
   targets.push(target);
   localStorage.setItem("targets", JSON.stringify(targets));
+  currentHunt = target;
+  localStorage.setItem("currentHunt", JSON.stringify(target));
 
   return target;
 }
 
 function displayCurrentHunt(target) {
-  document.getElementById("hunt-id").innerHTML = target.id;
+  // document.getElementById("hunt-id").innerHTML = target.id;
   document.getElementById("hunt-pkmn").innerHTML = target.pokemon;
   document.getElementById("hunt-method").innerHTML = target.method;
-  document.getElementById("hunt-date").innerHTML = target.date;
+  document.getElementById("hunt-started").innerHTML = target.started;
   document.getElementById("hunt-count").innerHTML = target.encounters;
   document.getElementById("hunt-notes").innerHTML = target.notes;
 }
@@ -90,7 +92,6 @@ function createCurrentHunt() {
   if (currentHunt == null)
     document.getElementById("nav-mobile-current").classList.toggle("hidden");
 
-  localStorage.setItem("currentHunt", JSON.stringify(target));
   document.getElementById("s-new-hunt").classList.toggle("hidden");
   document.getElementById("form").reset();
   toggleSelection("s-current-hunt", "current hunt", false);
@@ -107,6 +108,10 @@ function showTargetNotes() {
   document.getElementById('hunt-show').classList.toggle('hidden');
   document.getElementById('hunt-hide').classList.toggle('hidden');
   document.getElementById('hunt-notes').classList.toggle('hidden');
+}
+
+function addEncounter() {
+
 }
 
 // ---------------------------------- DEBUG FUNCTIONS ----------------------------------
