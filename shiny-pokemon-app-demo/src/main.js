@@ -10,17 +10,11 @@ class Target {
     this.notes = "";
     this.encounters = 0;
   }
-  getID() {
+  setID() {
     if (localStorage.getItem("currentID") != null)
       this.id = Number(localStorage.getItem("currentID")) + 1;
     localStorage.setItem("currentID", JSON.stringify(this.id));
     return this.id;
-  }
-  add() {
-    return this.encounters + 1;
-  }
-  substract() {
-    return this.encounters - 1;
   }
 }
 
@@ -63,7 +57,7 @@ function toggleSelection(sID, headerTxt, changeBtn) {
 
 function createNewTarget() {
   let target = new Target();
-  target.id = target.getID();
+  target.id = target.setID();
   target.pokemon = document.getElementById("pkmn").value;
   target.method = document.getElementById("method").value;
   target.started = document.getElementById("started").value;
@@ -77,7 +71,6 @@ function createNewTarget() {
 }
 
 function displayCurrentHunt(target) {
-  // document.getElementById("hunt-id").innerHTML = target.id;
   document.getElementById("hunt-pkmn").innerHTML = target.pokemon;
   document.getElementById("hunt-method").innerHTML = target.method;
   document.getElementById("hunt-started").innerHTML = target.started;
@@ -110,8 +103,31 @@ function showTargetNotes() {
   document.getElementById('hunt-notes').classList.toggle('hidden');
 }
 
-function addEncounter() {
+function changeEncounterCount(symbol) {
+  if (symbol == "-")
+    currentHunt.encounters -= 1;
+  else if (symbol == "+")
+    currentHunt.encounters += 1;
+  document.getElementById("hunt-count").innerHTML = currentHunt.encounters;
+  localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
+}
 
+function pauseHunt() {
+  toggleSelection("s-current-hunt", "navigation", true);
+  targets[currentHunt.id].encounters = currentHunt.encounters;
+  localStorage.setItem("targets", targets);
+}
+
+function showList(listID, headerTxt) {
+  let targetList = document.getElementById("targets");
+  //targetList.innerHTML = "";
+
+  targets.forEach(pokemon => {
+    let li = document.createElement("li");
+    li.innerText = pokemon.pokemon;
+    targetList.appendChild(li);
+  });
+  toggleSelection(listID, headerTxt, true);
 }
 
 // ---------------------------------- DEBUG FUNCTIONS ----------------------------------

@@ -26,7 +26,7 @@
     <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('-', '-', true)">
       change current hunt
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-target-list', 'target list', true)">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('s-target-list', 'target list')">
       target list
     </button>
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-shiny-list', 'shiny list', true)">
@@ -38,12 +38,12 @@
   </nav>
 
   <!-- main content -->
-  <main class="mb-20">
+  <main class="my-20">
 
     <!-- current hunt -->
     <section id="s-current-hunt" class="hidden text-center tracking-[8%] ">
       <h2 class="font-karantina karantina-bold text-5xl text-susytext mb-10">Currently hunting</h2>
-      <div class="flex flex-col items-center gap-3 mb-5 text-susytext">
+      <div class="flex flex-col items-center gap-2 mb-5 text-susytext">
         <svg width="200" height="200" class="overflow-hidden">
           <circle cx="100" cy="100" r="100" fill="rgb(217, 217, 217)" />
           <image id="" x="5" y="-20" width="200" height="200" href="" />
@@ -55,9 +55,9 @@
         <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Encounters</p>
       </div>
       <div class="w-45 flex flex-row justify-around m-auto font-karantina text-center">
-        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('-')">-</button>
+        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue leading-12 text-white   drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeEncounterCount('-')">-</button>
         <p id="hunt-count" class="text-3xl text-susytext"></p>
-        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">+</button>
+        <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeEncounterCount('+')">+</button>
       </div><br>
       <div class="flex flex-col items-center gap-2">
           <div class="leading-8 rounded-4xl px-4 py-2 text-white bg-susybuttonhover opacity-60 hover:opacity-30">
@@ -99,10 +99,9 @@
     </section>
 
     <!-- target list -->
-    <section id="s-target-list" class="hidden text-center">
-      <!-- <button class="hover:bg-gray-400" onclick="showTargetList()">show</button> -->
-      <ul id=""></ul>
-      target list
+    <section id="s-target-list" class="hidden text-center text-susytext">
+      <h2 class="font-karantina karantina-bold text-5xl text-susytext mb-10">Target shinies</h2>
+      <ul id="targets"></ul>
     </section>
 
     <!-- shiny list -->
@@ -122,6 +121,7 @@
     <button class="hover:bg-gray-400" onclick="( () => { console.log(targets); } )();">print target list</button><br>
     <button class="hover:bg-gray-400" onclick="( () => { localStorage.clear(); console.log('ls cleared'); } )();">clear ls</button><br>
     <button class="hover:bg-gray-400" onclick="( () => { console.log(currentHunt); } )();">print current hunt</button>
+    <button class="hover:bg-gray-400" onclick="( () => { console.log(typeof(currentHunt.encounters)); } )();">print current hunt</button>
   </footer>
 
   <script src="main.js"></script> 
