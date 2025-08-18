@@ -1,204 +1,117 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
-
-// NOTE: data saving only works currently if continue the hunt section is closed from header's x button
-// or the pause button
-// data will not be saved if page gets refreshed or closed
-function checkList(key) {
-  if (JSON.parse(localStorage.getItem(key)) != null)
-    return JSON.parse(localStorage.getItem(key));
-  else
-    return [];
-}
+// check if there is data and is it list
 
 class Target {
-  constructor(id, img, pokemon, method, date, count) {
-    this.id = id;
-    this.img = img;
-    this.pokemon = pokemon;
-    this.method = method;
-    this.date = date;
-    this.count = count;
+  constructor() {
+    this.id = 0;
+    this.pokemon = "";
+    this.method = "";
+    this.started = "";
+    this.notes = "";
+    this.encounters = 0;
+  }
+  getID() {
+    if (localStorage.getItem("currentID") != null)
+      this.id = Number(localStorage.getItem("currentID")) + 1;
+    localStorage.setItem("currentID", JSON.stringify(this.id));
+    return this.id;
+  }
+  add() {
+    return this.encounters + 1;
+  }
+  substract() {
+    return this.encounters - 1;
   }
 }
 
-// section id values
-const selections = ["curh", "newh", "targetl", "caughtl", "info"];
-const headerTxt = ["continue hunt", "new hunt", "target list", "caught shinies", "info", "navigation"];
+function getSavedData(key, isList) {
+  if (localStorage.getItem(key) != null)
+      return JSON.parse(localStorage.getItem(key));
+  else {
+    if (isList)
+      return [];
+    else
+      return null;
+  }
+}
 
-let targetPkmn = checkList("targetList");
-let caughtPkmn = checkList("shinyList");
-let currentPkmn = null;
+let targets = getSavedData("targets", true); // ls key: targets
+let shinies = getSavedData("shinies", true); // ls key: shinies
+let currentHunt = getSavedData("currentHunt", false);
 
-// call on load if there is a current hunt id
+function toggleNav(text, changeBtn) {
+  document.getElementById("header-text").innerHTML = text;
+  if (changeBtn) {
+    document.getElementById("nav-mobile").classList.toggle("hidden");
+    document.getElementById("header-b1").classList.toggle("hidden");
+    document.getElementById("header-b2").classList.toggle("hidden");
+  }
+}
+
+function toggleSelection(sID, headerTxt, changeBtn) {
+  toggleNav(headerTxt, changeBtn);
+  if (sID == "") {
+    sID = localStorage.getItem("openSelection");
+    localStorage.removeItem("openSelection");
+  }
+  else
+    localStorage.setItem("openSelection", sID);
+
+  document.getElementById(sID).classList.toggle("hidden");
+  
+}
+
+function createNewTarget() {
+  let target = new Target();
+  target.id = target.getID();
+  target.pokemon = document.getElementById("pkmn").value;
+  target.method = document.getElementById("method").value;
+  target.started = document.getElementById("started").value;
+  target.notes = document.getElementById("notes").value;
+  targets.push(target);
+  localStorage.setItem("targets", JSON.stringify(targets));
+  currentHunt = target;
+  localStorage.setItem("currentHunt", JSON.stringify(target));
+
+  return target;
+}
+
+function displayCurrentHunt(target) {
+  // document.getElementById("hunt-id").innerHTML = target.id;
+  document.getElementById("hunt-pkmn").innerHTML = target.pokemon;
+  document.getElementById("hunt-method").innerHTML = target.method;
+  document.getElementById("hunt-started").innerHTML = target.started;
+  document.getElementById("hunt-count").innerHTML = target.encounters;
+  document.getElementById("hunt-notes").innerHTML = target.notes;
+}
+
+function createCurrentHunt() {
+  let target = createNewTarget();
+  displayCurrentHunt(target);
+
+  if (currentHunt == null)
+    document.getElementById("nav-mobile-current").classList.toggle("hidden");
+
+  document.getElementById("s-new-hunt").classList.toggle("hidden");
+  document.getElementById("form").reset();
+  toggleSelection("s-current-hunt", "current hunt", false);
+}
+
 function checkCurrentHunt() {
-  if (JSON.parse(localStorage.getItem("currentH")) != null) {
-    let currentH = JSON.parse(localStorage.getItem("currentH"));
-    document.getElementById("idcard").innerHTML = currentH.id;
-    document.getElementById("pkmcard").innerHTML = currentH.pokemon;
-    document.getElementById("methodcard").innerHTML = currentH.method;
-    document.getElementById("datecard").innerHTML = currentH.date;
-    document.getElementById("countcard").innerHTML = currentH.count;
-    document.getElementById("curnav").classList.toggle("hidden");
-  }
-  else
-    console.log("data not found");
-}
-
-function setCurrentHunt(stop) {
-  let currentH = JSON.parse(localStorage.getItem("currentH"));
-  targetPkmn[currentH.id].count = currentH.count;
-  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
-
-  if (stop)
-    return currentH;
-}
-
-function toIndex() {
-  window.location.href = "index.html";
-}
-
-function toggleSelections(arrayID) {
-  document.getElementById(selections[arrayID]).classList.toggle("hidden");
-  document.getElementById("close1").classList.toggle("hidden");
-  document.getElementById("close2").classList.toggle("hidden");
-  document.getElementById("nav").classList.toggle("hidden");
-  document.getElementById("header-text").innerHTML = headerTxt[arrayID];
-}
-
-// manage mobile nav bar visibility
-function showNavbar() {
-  document.getElementById("close1").classList.toggle("hidden");
-  document.getElementById("close2").classList.toggle("hidden");
-  document.getElementById("header-text").innerHTML = headerTxt[headerTxt.length - 1];
-  document.getElementById("nav").classList.toggle("hidden");
-  document.getElementById("tarl").innerHTML = ""; // clear target list
-  document.getElementById("shinyl").innerHTML = "";
-
-  if (!document.getElementById("curh").classList.contains("hidden"))
-    setCurrentHunt(false);
-
-  // if an element is visible, hide it by toggling hidden class
-  for (let i = 0; i < selections.length; i++) {
-    if (!document.getElementById(selections[i]).classList.contains("hidden"))
-      document.getElementById(selections[i]).classList.toggle("hidden");
+  if (currentHunt != null) {
+    displayCurrentHunt(currentHunt);
+    document.getElementById("nav-mobile-current").classList.toggle("hidden");
   }
 }
 
-// add/substract to encounter count
-function changeCount(symbol) {
-  let currentH = JSON.parse(localStorage.getItem("currentH"));
-  let count = Number(document.getElementById("countcard").innerHTML);
-
-  if (symbol == "-") {
-    count -= 1;
-  }
-  else if (symbol == "+") {
-    count += 1;
-  }
-
-  document.getElementById("countcard").innerHTML = String(count);
-  currentH.count = count;
-  localStorage.setItem("currentH", JSON.stringify(currentH));
+function showTargetNotes() {
+  document.getElementById('hunt-show').classList.toggle('hidden');
+  document.getElementById('hunt-hide').classList.toggle('hidden');
+  document.getElementById('hunt-notes').classList.toggle('hidden');
 }
 
-// save current hunt to caughtPkmn
-function stopHunt() {
-  let pokemon = setCurrentHunt(true);
-  targetPkmn.splice(pokemon.id, 1);
-  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
-  localStorage.removeItem("currentH");
-  caughtPkmn.push(pokemon);
-  localStorage.setItem("shinyList", JSON.stringify(caughtPkmn));
-  document.getElementById("curnav").classList.toggle("hidden");
-  
+function addEncounter() {
+
 }
 
-// fetch data from new hunt form, return an array that has
-function getFormData() {
-  let id = targetPkmn.length;
-  let pokemon = document.getElementById("pkm").value;
-  let method = document.getElementById("method").value;
-  let date = document.getElementById("date").value;
-  let data = new Target(id, 0, pokemon, method, date, 0);
-
-  return data;
-}
-
-// set up hunt card data
-function createHuntCard() {
-  let target = getFormData();
-
-  document.getElementById("idcard").innerHTML = target.id;
-  document.getElementById("pkmcard").innerHTML = target.pokemon;
-  document.getElementById("methodcard").innerHTML = target.method;
-  document.getElementById("datecard").innerHTML = target.date;
-  document.getElementById("countcard").innerHTML = target.count;
-
-  targetPkmn.push(target);
-  localStorage.setItem("currentH", JSON.stringify(target));
-  localStorage.setItem("targetList", JSON.stringify(targetPkmn));
-}
-
-// close new hunt, open continue hunt, reset form
-function showHuntCard() {
-  createHuntCard();
-  document.getElementById("newh").classList.toggle("hidden");
-  document.getElementById("curh").classList.toggle("hidden");
-  document.getElementById("curnav").classList.remove("hidden");
-  document.getElementById("pkmnform").reset();
-}
-
-function showTargetList() {
-  let list = document.getElementById("tarl");
-  
-  if (targetPkmn.length > 0) {
-    targetPkmn.forEach((x) => {
-      let li = document.createElement("li");
-      li.innerText = x.pokemon;
-      list.appendChild(li);
-    });
-  }
-  else {
-    let li = document.createElement("li");
-      li.innerText = "list empty";
-      list.appendChild(li);
-  }
-  toggleSelections(2);
-}
-
-function showShinyList() {
-  let list = document.getElementById("shinyl");
-  
-  if (caughtPkmn.length > 0) {
-    caughtPkmn.forEach((x) => {
-      let li = document.createElement("li");
-      li.innerText = x.pokemon;
-      list.appendChild(li);
-    });
-  }
-  else {
-    let li = document.createElement("li");
-      li.innerText = "list empty";
-      list.appendChild(li);
-  }
-  toggleSelections(3);
-}
-
-// for testing--------------------------------------------------
-function clearLS() {
-  localStorage.clear();
-  console.log("cleared localstorage");
-}
-// debug func
-function showTargetsInLS() {
-  if (JSON.parse(localStorage.getItem("targetList")) != null)
-    console.log(JSON.parse(localStorage.getItem("targetList")));
-  else
-    console.log("nothing");
-}
-function showCurrentHuntInLS() {
-  if (JSON.parse(localStorage.getItem("currentH")) != null)
-    console.log(JSON.parse(localStorage.getItem("currentH")));
-  else
-    console.log("nothing");
-}
+// ---------------------------------- DEBUG FUNCTIONS ----------------------------------
