@@ -145,4 +145,29 @@ function showList(listID, list, sID, headerTxt) {
   toggleSelection(sID, headerTxt, true);
 }
 
+function foo(hunt) {
+  //currentHunt = this.getatt
+  displayCurrentHunt();
+  toggleSelection(currentHunt, "current hunt", false);
+}
+
+function changeHunt(listID, sID, headerTxt) {
+  let htmlList = document.getElementById(listID);
+  htmlList.innerHTML = "";
+
+  if (targets.length > 0) {
+    targets.forEach(pokemon => {
+      let btn = document.createElement("button");
+      btn.setAttribute("onclick", "foo()");
+      btn.setAttribute("class", "bg-gray-200");
+      btn.setAttribute("name", pokemon.id);
+      btn.innerText = pokemon.pokemon;
+      let li = document.createElement("li");
+      li.appendChild(btn);
+      htmlList.appendChild(li);
+    });
+  }
+  toggleSelection(sID, headerTxt, true);
+}
+
 // ---------------------------------- DEBUG FUNCTIONS ----------------------------------

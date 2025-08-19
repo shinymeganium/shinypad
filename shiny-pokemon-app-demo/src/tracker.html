@@ -23,10 +23,10 @@
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('s-new-hunt', 'new hunt', true)">
       start a new hunt
     </button>
-    <button class="hidden w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('-', '-', true)">
+    <button class=" w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white  drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeHunt('change', 's-change-hunt', 'change hunt')">
       change current hunt
     </button>
-    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('targets', targets, 's-target-list', 'target list')">
+    <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="foofoo()">
       target list
     </button>
     <button class="w-70 h-16 rounded-4xl font-karantina text-4xl bg-susyblue text-center leading-16 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('shinies', shinies, 's-shiny-list', 'shiny list')">
@@ -96,6 +96,11 @@
       <button class="w-30 h-12 mt-8 rounded-4xl font-karantina text-2xl bg-susyblue text-center leading-12 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="createCurrentHunt()">
         START
       </button>
+    </section>
+
+    <section id="s-change-hunt" class="hidden text-center">
+      <h2 class="font-karantina karantina-bold text-5xl text-susytext mb-10">Change current hunt</h2>
+      <ul id="change"></ul>
     </section>
 
     <!-- target list -->
