@@ -52,7 +52,7 @@ function toggleSelection(sID, headerTxt, changeBtn) {
     localStorage.setItem("openSelection", sID);
 
   document.getElementById(sID).classList.toggle("hidden");
-  
+  window.scrollTo(0,0);
 }
 
 function createNewTarget() {
@@ -82,8 +82,9 @@ function createCurrentHunt() {
   let target = createNewTarget();
   displayCurrentHunt(target);
 
-  if (currentHunt == null)
-    document.getElementById("nav-mobile-current").classList.toggle("hidden");
+  if (currentHunt != null)
+    document.getElementById("nav-mobile-current").classList.remove("hidden");
+  // if (currentHunt != null && target.length > 0)
 
   document.getElementById("s-new-hunt").classList.toggle("hidden");
   document.getElementById("form").reset();
@@ -93,7 +94,7 @@ function createCurrentHunt() {
 function checkCurrentHunt() {
   if (currentHunt != null) {
     displayCurrentHunt(currentHunt);
-    document.getElementById("nav-mobile-current").classList.toggle("hidden");
+    document.getElementById("nav-mobile-current").classList.remove("hidden");
   }
 }
 
@@ -110,24 +111,38 @@ function changeEncounterCount(symbol) {
     currentHunt.encounters += 1;
   document.getElementById("hunt-count").innerHTML = currentHunt.encounters;
   localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
-}
-
-function pauseHunt() {
-  toggleSelection("s-current-hunt", "navigation", true);
   targets[currentHunt.id].encounters = currentHunt.encounters;
-  localStorage.setItem("targets", targets);
+  localStorage.setItem("targets", JSON.stringify(targets));
 }
 
-function showList(listID, headerTxt) {
-  let targetList = document.getElementById("targets");
-  //targetList.innerHTML = "";
+function stopCurrentHunt() {
+  shinies.push(currentHunt);
+  localStorage.setItem("shinies", JSON.stringify(shinies));
+  targets.splice(targets.indexOf(currentHunt));
+  localStorage.setItem("targets", JSON.stringify(targets));
+  currentHunt = null;
+  localStorage.removeItem("currentHunt");
+  document.getElementById("hunt-pkmn").innerHTML = "";
+  document.getElementById("hunt-method").innerHTML = "";
+  document.getElementById("hunt-started").innerHTML = "";
+  document.getElementById("hunt-count").innerHTML = "";
+  document.getElementById("hunt-notes").innerHTML = "";
+  toggleSelection('', 'navigation', true);
+  //console.log(targets.indexOf(currentHunt));
+}
 
-  targets.forEach(pokemon => {
-    let li = document.createElement("li");
-    li.innerText = pokemon.pokemon;
-    targetList.appendChild(li);
-  });
-  toggleSelection(listID, headerTxt, true);
+function showList(listID, list, sID, headerTxt) {
+  let htmlList = document.getElementById(listID);
+  htmlList.innerHTML = "";
+
+  if (list.length > 0) {
+    list.forEach(pokemon => {
+      let li = document.createElement("li");
+      li.innerText = pokemon.pokemon;
+      htmlList.appendChild(li);
+    });
+  }
+  toggleSelection(sID, headerTxt, true);
 }
 
 // ---------------------------------- DEBUG FUNCTIONS ----------------------------------
