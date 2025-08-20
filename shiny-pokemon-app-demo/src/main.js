@@ -33,26 +33,32 @@ let targets = getSavedData("targets", true); // ls key: targets
 let shinies = getSavedData("shinies", true); // ls key: shinies
 let currentHunt = getSavedData("currentHunt", false);
 
-function toggleNav(text, changeBtn) {
-  document.getElementById("header-text").innerHTML = text;
-  if (changeBtn) {
-    document.getElementById("nav-mobile").classList.toggle("hidden");
-    document.getElementById("header-b1").classList.toggle("hidden");
-    document.getElementById("header-b2").classList.toggle("hidden");
-  }
-}
+// function toggleNav(text, changeBtn) {
+//   document.getElementById("header-text").innerHTML = text;
+//   if (changeBtn) {
+//     document.getElementById("nav-mobile").classList.toggle("hidden");
+//     document.getElementById("header-b1").classList.toggle("hidden");
+//     document.getElementById("header-b2").classList.toggle("hidden");
+//   }
+// }
 
-function toggleSelection(sID, headerTxt, changeBtn) {
-  toggleNav(headerTxt, changeBtn);
-  if (sID == "") {
-    sID = localStorage.getItem("openSelection");
-    localStorage.removeItem("openSelection");
-  }
-  else
-    localStorage.setItem("openSelection", sID);
+// function toggleSelection(sID, headerTxt, changeBtn) {
+//   toggleNav(headerTxt, changeBtn);
+//   if (sID == "") {
+//     sID = localStorage.getItem("openSelection");
+//     localStorage.removeItem("openSelection");
+//   }
+//   else
+//     localStorage.setItem("openSelection", sID);
 
+//   document.getElementById(sID).classList.toggle("hidden");
+//   window.scrollTo(0,0);
+// }
+
+function toggleSel(sID, navID = "nav-mobile") {
   document.getElementById(sID).classList.toggle("hidden");
-  window.scrollTo(0,0);
+  if (navID != "")
+    document.getElementById(navID).classList.toggle("hidden");
 }
 
 function createNewTarget() {
@@ -84,19 +90,25 @@ function createCurrentHunt() {
 
   if (currentHunt != null)
     document.getElementById("nav-mobile-current").classList.remove("hidden");
-  // if (currentHunt != null && target.length > 0)
 
   document.getElementById("s-new-hunt").classList.toggle("hidden");
   document.getElementById("form").reset();
-  if (targets.length > 1)
-    document.getElementById("nav-change-current").classList.remove("hidden");
-  toggleSelection("s-current-hunt", "current hunt", false);
+  if (targets.length > 1) {
+    if (document.getElementById("nav-change-current").classList.contains("hidden"))
+      document.getElementById("nav-change-current").classList.toggle("hidden");
+  }
+  //toggleSelection("s-current-hunt", "current hunt", false);
+  toggleSel("s-current-hunt", "");
 }
 
 function checkCurrentHunt() {
   if (currentHunt != null) {
     displayCurrentHunt(currentHunt);
     document.getElementById("nav-mobile-current").classList.remove("hidden");
+  }
+  else {
+    if (!document.getElementById("nav-mobile-current").classList.contains("hidden"))
+      document.getElementById("nav-mobile-current").classList.toggle("hidden");
   }
   if (targets.length > 1)
     document.getElementById("nav-change-current").classList.remove("hidden");
@@ -108,7 +120,7 @@ function showTargetNotes() {
   document.getElementById('hunt-notes').classList.toggle('hidden');
 }
 
-function changeEncounterCount(symbol) {
+function changeCount(symbol) {
   if (symbol == "-")
     currentHunt.encounters -= 1;
   else if (symbol == "+")
