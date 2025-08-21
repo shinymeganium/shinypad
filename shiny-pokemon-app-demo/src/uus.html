@@ -6,7 +6,7 @@
   <title>Shiny Pokémon Tracker</title>
   <link rel="stylesheet" href="./output.css">
 </head>
-<body class="min-w-80 max-w-145 min-h-screen overflow-auto bg-linear-to-b from-white to-susyblue font-karantina xl:min-w-300 xl:max-h-250 xl:overflow-hidden">
+<body class="min-w-80 max-w-145 min-h-screen overflow-auto bg-linear-to-b from-white to-susyblue font-karantina xl:min-w-300 xl:max-h-250 xl:overflow-hidden" onload="checkCurrentHunt()">
   
   <div class=" flex justify-center xl:min-h-200 xl:max-h-250">
 
@@ -21,29 +21,37 @@
             current hunt
           </button>
 
-          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('newhunt')">
             start a new hunt
           </button>
 
-          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button id="changehuntbtn" class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt')">
             change current hunt
           </button>
 
-          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('targets', targets, 'targetlist')">
             target list
           </button>
 
-          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('shinies', shinies, 'shinylist')">
             shiny list
           </button>
 
-          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSelection('info')">
             info
           </button>
 
-        </div>
+          <div class="flex gap-2 mt-5 text-2xl">
+            <button class="" type="button" onclick="( () => {
+              localStorage.clear();
+              console.log('cleared ls'); } )()">clear ls
+            </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(currentHunt); } )()">currenth
+            </button>
+          </div>
 
-        <!-- --------------------------------------------------- -->
+        </div>
 
         <div id="nav" class="hidden xl:min-h-160 xl:grid xl:grid-cols-3 xl:grid-rows-2 xl:justify-items-center xl:items-center rounded-4xl">
 
@@ -51,34 +59,43 @@
             current hunt
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleBig('newhunt')">
             start a new hunt
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt')">
             change current hunt
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('targets', targets, 'targetlist')">
             target list
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('shinies', shinies, 'shinylist')">
             shiny list
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleBig('info')">
             info
           </button>
 
+          <div class="flex gap-2 mt-5 text-2xl">
+            <button class="" type="button" onclick="( () => {
+              localStorage.clear();
+              console.log('cleared ls'); } )()">clear ls
+            </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(currentHunt); } )()">currenth
+            </button>
+          </div>
         </div>
       </nav>
     </header>
 
-    <main id="maincontent" class="border border-susygray min-w-full h-screen absolute z-9 text-susytext text-center xl:hidden xl:min-w-140 xl:max-h-190 xl:top-[5%] xl:bg-susylightgray">
+    <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center xl:hidden xl:min-w-140 xl:max-h-190 xl:top-[5%] xl:bg-susylightgray xl:border xl:border-susygray">
 
-      <section id="currenthunt" class="hidden z-10 xl">
-        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+      <section id="currenthunt" class="hidden z-10">
+        <div class="h-12 flex justify-between items-center bg-susyblue px-3 text-2xl text-white">
           <span>current hunt</span>
           <button class="cursor-pointer hover:text-black lg:hidden"
                   onclick="toggleSelection('currenthunt')">x</button>
@@ -122,10 +139,11 @@
         </div>
       </section>
 
-      <section class="hidden z-10">
-        <div class="w-full h-12 px-3 sticky top-0 z-10 flex flex-row justify-between items-center text-white text-2xl bg-susyblue">
+      <section id="newhunt" class="hidden z-10">
+        <div class="w-full h-12 px-3 left-50 z-10 flex flex-row justify-between items-center text-white text-2xl bg-susyblue">
           <span>new hunt</span>
-          <button class="cursor-pointer hover:text-black" onclick="toggleSel('s-new-hunt', 'nav')">x</button>
+          <button class="cursor-pointer hover:text-black xl:hidden" onclick="toggleSelection('newhunt')">x</button>
+          <button class="hidden cursor-pointer hover:text-black xl:block" onclick="toggleBig('newhunt')">x</button>
         </div>
         <h2 class="pt-20 text-5xl mb-20">Create a new hunt</h2>
         <form id="form" class="flex flex-col items-center gap-2 font-sans">
@@ -142,6 +160,57 @@
         <button class="w-30 h-12 mt-8 rounded-4xl text-2xl bg-susyblue text-center leading-12 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="createCurrentHunt()">
           START
         </button>
+      </section>
+
+      <section id="changehunt" class="hidden z-10">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+          <span>change hunt</span>
+          <button class="cursor-pointer hover:text-black lg:hidden"
+                  onclick="toggleSelection('changehunt')">x</button>
+
+          <button class="hidden cursor-pointer hover:text-black lg:block"
+                  onclick="toggleBig('changehunt')">x</button>
+        </div>
+        <h2 class="pt-5 pb-10 karantina-bold text-5xl">Change current target</h2>
+        <ul id="changetarget"></ul>
+      </section>
+
+      <section id="targetlist" class="hidden z-10">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+          <span>target list</span>
+          <button class="cursor-pointer hover:text-black lg:hidden"
+                  onclick="toggleSelection('targetlist')">x</button>
+
+          <button class="hidden cursor-pointer hover:text-black lg:block"
+                  onclick="toggleBig('targetlist')">x</button>
+        </div>
+        <h2 class="pt-5 pb-10 karantina-bold text-5xl">Target list</h2>
+        <ul id="targets"></ul>
+      </section>
+
+      <section id="shinylist" class="hidden z-10">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+          <span>shiny list</span>
+          <button class="cursor-pointer hover:text-black lg:hidden"
+                  onclick="toggleSelection('shinylist')">x</button>
+
+          <button class="hidden cursor-pointer hover:text-black lg:block"
+                  onclick="toggleBig('shinylist')">x</button>
+        </div>
+        <h2 class="pt-5 pb-10 karantina-bold text-5xl">Caught shinies</h2>
+        <ul id="shinies"></ul>
+      </section>
+
+      <section id="info" class="hidden z-10">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+          <span>info</span>
+          <button class="cursor-pointer hover:text-black lg:hidden"
+                  onclick="toggleSelection('info')">x</button>
+
+          <button class="hidden cursor-pointer hover:text-black lg:block"
+                  onclick="toggleBig('info')">x</button>
+        </div>
+        <h2 class="pt-5 pb-10 karantina-bold text-5xl">About the app</h2>
       </section>
 
     </main>

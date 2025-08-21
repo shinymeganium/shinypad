@@ -33,40 +33,19 @@ let targets = getSavedData("targets", true); // ls key: targets
 let shinies = getSavedData("shinies", true); // ls key: shinies
 let currentHunt = getSavedData("currentHunt", false);
 
-// function toggleNav(text, changeBtn) {
-//   document.getElementById("header-text").innerHTML = text;
-//   if (changeBtn) {
-//     document.getElementById("nav-mobile").classList.toggle("hidden");
-//     document.getElementById("header-b1").classList.toggle("hidden");
-//     document.getElementById("header-b2").classList.toggle("hidden");
-//   }
-// }
-
-// function toggleSelection(sID, headerTxt, changeBtn) {
-//   toggleNav(headerTxt, changeBtn);
-//   if (sID == "") {
-//     sID = localStorage.getItem("openSelection");
-//     localStorage.removeItem("openSelection");
-//   }
-//   else
-//     localStorage.setItem("openSelection", sID);
-
-//   document.getElementById(sID).classList.toggle("hidden");
-//   window.scrollTo(0,0);
-// }
-
 function toggleSelection(sID, navID = "navmobile") {
-  document.getElementById("title").classList.toggle("hidden");
   document.getElementById(sID).classList.toggle("hidden");
-  document.getElementById("maincontent").classList.toggle("bg-susylightgray");
-  if (navID != "")
+  
+  if (navID != "") {
     document.getElementById(navID).classList.toggle("hidden");
+    document.getElementById("title").classList.toggle("hidden");
+    document.getElementById("maincontent").classList.toggle("bg-susylightgray");
+  }
 }
 
 function toggleBig(sID) {
   document.getElementById("maincontent").classList.toggle("xl:hidden");
   document.getElementById(sID).classList.toggle("hidden");
-  console.log("yup");
 }
 
 function createNewTarget() {
@@ -96,30 +75,27 @@ function createCurrentHunt() {
   let target = createNewTarget();
   displayCurrentHunt(target);
 
-  if (currentHunt != null)
-    document.getElementById("nav-mobile-current").classList.remove("hidden");
-
-  document.getElementById("s-new-hunt").classList.toggle("hidden");
-  document.getElementById("form").reset();
-  if (targets.length > 1) {
-    if (document.getElementById("nav-change-current").classList.contains("hidden"))
-      document.getElementById("nav-change-current").classList.toggle("hidden");
+  document.getElementById("newhunt").classList.toggle("hidden");
+  
+    if (window.matchMedia("(width < 64rem)")) {
+      toggleSelection("currenthunt", "");
+    }
+    else {
+      toggleBig("currenthunt");
+    }
   }
-  //toggleSelection("s-current-hunt", "current hunt", false);
-  toggleSel("s-current-hunt", "");
-}
 
 function checkCurrentHunt() {
   if (currentHunt != null) {
     displayCurrentHunt(currentHunt);
-    document.getElementById("nav-mobile-current").classList.remove("hidden");
+    //document.getElementById("nav-mobile-current").classList.remove("hidden");
   }
-  else {
-    if (!document.getElementById("nav-mobile-current").classList.contains("hidden"))
-      document.getElementById("nav-mobile-current").classList.toggle("hidden");
-  }
-  if (targets.length > 1)
-    document.getElementById("nav-change-current").classList.remove("hidden");
+  // else {
+  //   if (!document.getElementById("nav-mobile-current").classList.contains("hidden"))
+  //     document.getElementById("nav-mobile-current").classList.toggle("hidden");
+  // }
+  // if (targets.length > 1)
+  //   document.getElementById("nav-change-current").classList.remove("hidden");
 }
 
 function showTargetNotes() {
@@ -139,6 +115,7 @@ function changeCount(symbol) {
   localStorage.setItem("targets", JSON.stringify(targets));
 }
 
+//// broken
 function stopCurrentHunt() {
   // shinies.push(currentHunt);
   // localStorage.setItem("shinies", JSON.stringify(shinies));
@@ -159,7 +136,7 @@ function stopCurrentHunt() {
   //console.log(targets.indexOf(currentHunt));
 }
 
-function showList(listID, list, sID, headerTxt) {
+function showList(listID, list, sID) {
   let htmlList = document.getElementById(listID);
   htmlList.innerHTML = "";
 
@@ -170,8 +147,17 @@ function showList(listID, list, sID, headerTxt) {
       htmlList.appendChild(li);
     });
   }
-  toggleSelection(sID, headerTxt, true);
+
+  if (window.matchMedia("(width < 64rem)")) {
+      toggleSelection(sID);
+    }
+    else {
+      toggleBig("currenthunt");
+    }
+  
 }
+
+// document.getElementById("changehuntbtn").addEventListener("click", () => showList("targets", targets, "changehunt"));
 
 function changeTarget(pkmid) {
   currentHunt = targets[pkmid];
