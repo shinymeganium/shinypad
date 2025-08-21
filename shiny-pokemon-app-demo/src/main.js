@@ -204,48 +204,63 @@ function showChangeHunt(listID, sID, headerTxt, changeBtn) {
 
 // -----------------------------------------------------
 
-// Make the DIV element draggable:
-dragElement(document.getElementById("maincontent"));
-
+// Modernized dragElement function using current standards and best practices
 function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
+  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
+  function closeDragElement() {
+    // Remove the event listeners when mouse button is released:
+    document.removeEventListener('mousemove', elementDrag);
+    document.removeEventListener('mouseup', closeDragElement);
   }
 
   function elementDrag(e) {
-    e = e || window.event;
+    // Ensure the event is a MouseEvent
     e.preventDefault();
-    // calculate the new cursor position:
+    // Calculate the new cursor position:
     pos1 = pos3 - e.clientX;
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    // Set the element's new position:
+    elmnt.style.top = `${elmnt.offsetTop - pos2}px`;
+    elmnt.style.left = `${elmnt.offsetLeft - pos1}px`;
   }
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
+  function dragMouseDown(e) {
+    // Only left mouse button should trigger drag
+    if (e.button !== 0) return;
+    e.preventDefault();
+    // Get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.addEventListener('mousemove', elementDrag);
+    document.addEventListener('mouseup', closeDragElement);
+  }
+
+  // Use querySelector for better flexibility
+  const header = document.getElementById(`${elmnt.id}header`);
+  if (header) {
+    header.addEventListener('mousedown', dragMouseDown);
+  } else {
+    elmnt.addEventListener('mousedown', dragMouseDown);
   }
 }
+
+// Use media query with modern syntax and listen for changes
+const mql = window.matchMedia("(width >= 64rem)");
+
+function enableDragIfWide(e) {
+  if (e.matches) {
+    const mainContent = document.getElementById("maincontent");
+    if (mainContent) {
+      dragElement(mainContent);
+    }
+    console.log(e.matches);
+  }
+}
+
+enableDragIfWide(mql);
+mql.addEventListener('change', enableDragIfWide);
 
 // ---------------------------------- DEBUG FUNCTIONS ----------------------------------
