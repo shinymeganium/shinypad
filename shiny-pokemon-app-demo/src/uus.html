@@ -49,6 +49,12 @@
             <button class="" type="button" onclick="( () => {
               console.log(currentHunt); } )()">currenth
             </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(targets); } )()">targets
+            </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(shinies); } )()">shinies
+            </button>
           </div>
 
         </div>
@@ -87,61 +93,69 @@
             <button class="" type="button" onclick="( () => {
               console.log(currentHunt); } )()">currenth
             </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(targets); } )()">targets
+            </button>
+            <button class="" type="button" onclick="( () => {
+              console.log(shinies); } )()">shinies
+            </button>
           </div>
         </div>
       </nav>
     </header>
-
+<!-- REMEMBER TO DO THE TABLET SIZE VERSION -->
     <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center xl:hidden xl:min-w-140 xl:max-h-190 xl:top-[5%] xl:bg-susylightgray xl:border xl:border-susygray">
 
       <section id="currenthunt" class="hidden z-10">
         <div class="h-12 flex justify-between items-center bg-susyblue px-3 text-2xl text-white">
-          <span>current hunt</span>
-          <button class="cursor-pointer hover:text-black lg:hidden"
-                  onclick="toggleSelection('currenthunt')">x</button>
+        <span>current hunt</span>
+        <button class="cursor-pointer hover:text-black lg:hidden"
+                onclick="toggleSelection('currenthunt')">x</button>
 
-          <button class="hidden cursor-pointer hover:text-black lg:block"
-                  onclick="toggleBig('currenthunt')">x</button>
+        <button class="hidden cursor-pointer hover:text-black lg:block"
+                onclick="toggleBig('currenthunt')">x</button>
         </div>
         <h2 class="pt-5 pb-10 karantina-bold text-5xl">Currently hunting</h2>
-
-        <div class="flex flex-col items-center gap-2 mb-5 font-sans">
-          <svg width="200" height="200" class="overflow-hidden">
-            <circle cx="100" cy="100" r="100" fill="rgb(217, 217, 217)" />
-            <image id="" x="5" y="-20" width="200" height="200" href="" />
-          </svg>
-          <p id="hunt-pkmn" class="text-5xl text-white text-shadow-md font-karantina text-shadow-susyblue"></p>
-          <p id="hunt-method" class="h-8 leading-8 rounded-4xl px-4 bg-white border border-susyborder"></p>
-          <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Hunt started <span id="hunt-started"></span></p>
-          <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Encounters</p>
-        </div>
-        <div class="w-45 flex flex-row justify-around m-auto">
-          <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue leading-12 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('-')">-</button>
-          <p id="hunt-count" class="text-3xl"></p>
-          <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('+')">+</button>
-        </div><br>
-        <div class="flex flex-col items-center gap-2 font-sans">
-            <div class="leading-8 rounded-4xl px-4 py-2 text-white bg-susybuttonhover opacity-60 hover:opacity-30">
-              <button id="hunt-show" class="cursor-pointer" onclick="showTargetNotes()">Show notes</button>
-              <button id="hunt-hide" class="hidden cursor-pointer" onclick="showTargetNotes()">Hide notes</button>
+        <p id="chmsg" class="hidden text-3xl">
+          At the moment there is no active hunt
+        </p>
+        <div id="chcontent" class="">
+          <div class="flex flex-col items-center gap-2 mb-5 font-sans">
+            <svg width="200" height="200" class="overflow-hidden">
+              <circle cx="100" cy="100" r="100" fill="rgb(217, 217, 217)" />
+              <image id="" x="5" y="-20" width="200" height="200" href="" />
+            </svg>
+            <p id="hunt-pkmn" class="text-5xl text-white text-shadow-md font-karantina text-shadow-susyblue"></p>
+            <p id="hunt-method" class="h-8 leading-8 rounded-4xl px-4 bg-white border border-susyborder"></p>
+            <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Hunt started <span id="hunt-started"></span></p>
+            <p class="h-8 leading-8 rounded-4xl px-4 bg-white">Encounters</p>
+          </div>
+          <div class="w-45 flex flex-row justify-around m-auto">
+            <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue leading-12 text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('-')">-</button>
+            <p id="hunt-count" class="text-3xl"></p>
+            <button class="w-12 h-12 rounded-4xl text-2xl bg-susyblue text-white drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="changeCount('+')">+</button>
+          </div><br>
+          <div class="flex flex-col items-center gap-2 font-sans">
+              <div class="leading-8 rounded-4xl px-4 py-2 text-white bg-susyblue hover:bg-susybuttonhover">
+                <button id="hunt-show" class="cursor-pointer" onclick="showTargetNotes()">Show notes</button>
+                <button id="hunt-hide" class="hidden cursor-pointer" onclick="showTargetNotes()">Hide notes</button>
+              </div>
+              <p id="hunt-notes" class="hidden w-fit h-8 leading-8 rounded-4xl px-4 bg-white"></p>
+          </div>
+          <div class="mt-5">
+            <div class="flex justify-center gap-5 text-2xl text-white leading-12">
+              <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="( () => {
+                if (window.matchMedia('(max-width: 64rem)').matches)
+                  toggleSelection('currenthunt');
+                else
+                  toggleBig('currenthunt');
+              } )()">
+              PAUSE
+              </button>
+              <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="stopCurrentHunt()">
+              CAPTURED
+              </button>
             </div>
-            <p id="hunt-notes" class="hidden w-fit h-8 leading-8 rounded-4xl px-4 bg-white"></p>
-        </div>
-        <div class="mt-5">
-          <div class="flex justify-center gap-5 text-2xl text-white leading-12">
-            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="( () => {
-              if (window.matchMedia('(max-width: 64rem)').matches)
-                toggleSelection('currenthunt');
-              else
-                toggleBig('currenthunt');
-            } )()">
-            PAUSE
-            </button>
-            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="( () => {
-
-            } )()">
-            CAPTURED
-            </button>
           </div>
         </div>
       </section>
@@ -178,7 +192,7 @@
           <button class="hidden cursor-pointer hover:text-black lg:block"
                   onclick="toggleBig('changehunt')">x</button>
         </div>
-        <h2 class="pt-5 pb-10 karantina-bold text-5xl">Change current target</h2>
+        <h2 class="pt-5 pb-10 karantina-bold text-5xl">Change current hunt</h2>
         <ul id="changetarget"></ul>
       </section>
 
@@ -227,7 +241,7 @@
       </section>
 
       <section id="info" class="hidden z-10 text-2xl karantina-light">
-        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white karantina-regular">
           <span>info</span>
           <button class="cursor-pointer hover:text-black lg:hidden"
                   onclick="toggleSelection('info')">x</button>
@@ -236,10 +250,20 @@
                   onclick="toggleBig('info')">x</button>
         </div>
         <h2 class="pt-5 pb-10 karantina-bold text-5xl">About the app</h2>
+        <p class="p-5">
+          The purpose of this app is to aid in shiny hunting on various Pokémon games.
+        </p>
+        <p class="">
+          <h3 class="text-3xl karantina-bold">Future features</h3>
+        </p>
+        <p class="">
+          <h3 class="text-3xl karantina-bold">Known bugs</h3>
+        </p>
       </section>
 
     </main>
     
+    <!-- not working cause of position absolute is being used -->
     <footer class="hidden z-9 text-5xl">
       <p>footer</p>
       <p>footer</p>

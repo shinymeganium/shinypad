@@ -87,8 +87,9 @@ function createCurrentHunt() {
   }
 
 function checkCurrentHunt() {
-  if (currentHunt != null)
+  if (currentHunt != null) {}
     displayCurrentHunt(currentHunt);
+
 }
 
 function showTargetNotes() {
@@ -98,35 +99,37 @@ function showTargetNotes() {
 }
 
 function changeCount(symbol) {
-  if (symbol == "-")
-    currentHunt.encounters -= 1;
-  else if (symbol == "+")
-    currentHunt.encounters += 1;
-  document.getElementById("hunt-count").innerHTML = currentHunt.encounters;
-  localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
-  targets[currentHunt.id].encounters = currentHunt.encounters;
-  localStorage.setItem("targets", JSON.stringify(targets));
+  if (currentHunt != null) {
+    if (symbol == "-")
+      currentHunt.encounters -= 1;
+    else if (symbol == "+")
+      currentHunt.encounters += 1;
+    document.getElementById("hunt-count").innerHTML = currentHunt.encounters;
+    localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
+    targets[targets.findIndex(obj => obj.id === currentHunt.id)].encounters = currentHunt.encounters;
+    localStorage.setItem("targets", JSON.stringify(targets));
+  }
 }
 
-//// broken
+//// broken doesnt load up the title and doesnt change the bg
 function stopCurrentHunt() {
-  // shinies.push(currentHunt);
-  // localStorage.setItem("shinies", JSON.stringify(shinies));
-  // targets.splice(targets.indexOf(currentHunt));
-  // localStorage.setItem("targets", JSON.stringify(targets));
-  // currentHunt = null;
-  // localStorage.removeItem("currentHunt");
-  // document.getElementById("hunt-pkmn").innerHTML = "";
-  // document.getElementById("hunt-method").innerHTML = "";
-  // document.getElementById("hunt-started").innerHTML = "";
-  // document.getElementById("hunt-count").innerHTML = "";
-  // document.getElementById("hunt-notes").innerHTML = "";
-  // document.getElementById("nav-mobile-current").classList.add("hidden");
-  // if (targets.length < 2)
-  //   document.getElementById("nav-change-current").classList.add("hidden");
-
-  // toggleSelection('', 'navigation', true);
-  //console.log(targets.indexOf(currentHunt));
+  if (currentHunt != null) {
+    shinies.push(currentHunt);
+    localStorage.setItem("shinies", JSON.stringify(shinies));
+    let print1 = targets.splice(targets.indexOf(currentHunt.id), 1);
+    console.log(print1);
+    localStorage.setItem("targets", JSON.stringify(targets));
+    currentHunt = null;
+    localStorage.removeItem("currentHunt");
+    document.getElementById("hunt-pkmn").innerHTML = "";
+    document.getElementById("hunt-method").innerHTML = "";
+    document.getElementById("hunt-started").innerHTML = "";
+    document.getElementById("hunt-count").innerHTML = "";
+    document.getElementById("hunt-notes").innerHTML = "";
+    document.getElementById("currenthunt").classList.toggle("hidden");
+    document.getElementById("navmobile").classList.toggle("hidden");
+    document.getElementById("title").classList.toggle("hidden");document.getElementById("maincontent").classList.toggle("bg-susylightgray");
+  }
 }
 
 function changeHunt(pkmid) {
@@ -140,9 +143,9 @@ function changeHunt(pkmid) {
 function showPokemon(target, pkm, method, date, count, notes) {
   displayCurrentHunt(target, pkm, method, date, count, notes);
   if (document.getElementById("targetlist").classList.contains != "hidden")
-    document.getElementById("targetlist").classList.toggle("hidden");
-  else if (document.getElementById("shinylist").classList.contains != "hidden")
-    document.getElementById("shinylist").classList.toggle("hidden");
+    document.getElementById("targetlist").classList.add("hidden");
+  if (document.getElementById("shinylist").classList.contains != "hidden")
+    document.getElementById("shinylist").classList.add("hidden");
   document.getElementById("showcase").classList.toggle("hidden");
 }
 
@@ -167,6 +170,8 @@ function showList(listID, list, sID, change = false) {
         htmlList.appendChild(li);
       });
   }
+  else
+    htmlList.innerHTML = "nothing here!";
 
   if (window.matchMedia("(max-width: 64rem)").matches)
     toggleSelection(sID);
