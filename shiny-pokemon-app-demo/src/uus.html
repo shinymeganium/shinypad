@@ -25,7 +25,7 @@
             start a new hunt
           </button>
 
-          <button id="changehuntbtn" class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt')">
+          <button class="w-70 h-16 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt', true)">
             change current hunt
           </button>
 
@@ -63,7 +63,7 @@
             start a new hunt
           </button>
 
-          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt')">
+          <button class="w-[60%] h-[40%] rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="showList('changetarget', targets, 'changehunt', true)">
             change current hunt
           </button>
 
@@ -129,10 +129,17 @@
         </div>
         <div class="mt-5">
           <div class="flex justify-center gap-5 text-2xl text-white leading-12">
-            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="toggleSel('s-current-hunt')">
+            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="( () => {
+              if (window.matchMedia('(max-width: 64rem)').matches)
+                toggleSelection('currenthunt');
+              else
+                toggleBig('currenthunt');
+            } )()">
             PAUSE
             </button>
-            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="">
+            <button class="w-21 h-12 rounded-4xl bg-susyblue drop-shadow-sm drop-shadow-white hover:bg-susybuttonhover" onclick="( () => {
+
+            } )()">
             CAPTURED
             </button>
           </div>
@@ -162,8 +169,8 @@
         </button>
       </section>
 
-      <section id="changehunt" class="hidden z-10">
-        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+      <section id="changehunt" class="hidden z-10 text-2xl karantina-light">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue karantina-regular text-2xl text-white">
           <span>change hunt</span>
           <button class="cursor-pointer hover:text-black lg:hidden"
                   onclick="toggleSelection('changehunt')">x</button>
@@ -175,8 +182,8 @@
         <ul id="changetarget"></ul>
       </section>
 
-      <section id="targetlist" class="hidden z-10">
-        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+      <section id="targetlist" class="hidden z-10 text-2xl karantina-light">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue karantina-regular text-2xl text-white">
           <span>target list</span>
           <button class="cursor-pointer hover:text-black lg:hidden"
                   onclick="toggleSelection('targetlist')">x</button>
@@ -188,8 +195,8 @@
         <ul id="targets"></ul>
       </section>
 
-      <section id="shinylist" class="hidden z-10">
-        <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
+      <section id="shinylist" class="hidden z-10 text-2xl karantina-light">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue karantina-regular text-2xl text-white">
           <span>shiny list</span>
           <button class="cursor-pointer hover:text-black lg:hidden"
                   onclick="toggleSelection('shinylist')">x</button>
@@ -201,7 +208,25 @@
         <ul id="shinies"></ul>
       </section>
 
-      <section id="info" class="hidden z-10">
+      <section id="showcase" class="hidden z-10 text-2xl karantina-light">
+        <div class="h-12 px-3 flex justify-between items-center bg-susyblue karantina-regular text-white">
+          <span>showcase</span>
+          <button class="cursor-pointer hover:text-black lg:hidden"
+                  onclick="toggleSelection('showcase')">x</button>
+
+          <button class="hidden cursor-pointer hover:text-black lg:block"
+                  onclick="toggleBig('showcase')">x</button>
+        </div>
+        <div class="flex flex-col items-center ">
+          <p id="showpkmn" class="m-2 text-5xl text-white text-shadow-md text-shadow-susyblue"></p>
+          <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Hunt method: <span id="showmethod"></span></p>
+          <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Hunt started: <span id="showdate"></span></p>
+          <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Encounters: <span id="showcount"></span></p>
+          <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Notes: <span id="shownotes"></span></p>
+      </div>
+      </section>
+
+      <section id="info" class="hidden z-10 text-2xl karantina-light">
         <div class="h-12 px-3 flex justify-between items-center bg-susyblue text-2xl text-white">
           <span>info</span>
           <button class="cursor-pointer hover:text-black lg:hidden"

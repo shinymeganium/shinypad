@@ -63,12 +63,12 @@ function createNewTarget() {
   return target;
 }
 
-function displayCurrentHunt(target) {
-  document.getElementById("hunt-pkmn").innerHTML = target.pokemon;
-  document.getElementById("hunt-method").innerHTML = target.method;
-  document.getElementById("hunt-started").innerHTML = target.started;
-  document.getElementById("hunt-count").innerHTML = target.encounters;
-  document.getElementById("hunt-notes").innerHTML = target.notes;
+function displayCurrentHunt(target, pkm = "hunt-pkmn", method = "hunt-method", started = "hunt-started", count = "hunt-count", notes = "hunt-notes") {
+  document.getElementById(pkm).innerHTML = target.pokemon;
+  document.getElementById(method).innerHTML = target.method;
+  document.getElementById(started).innerHTML = target.started;
+  document.getElementById(count).innerHTML = target.encounters;
+  document.getElementById(notes).innerHTML = target.notes;
 }
 
 function createCurrentHunt() {
@@ -76,6 +76,7 @@ function createCurrentHunt() {
   displayCurrentHunt(target);
 
   document.getElementById("newhunt").classList.toggle("hidden");
+  document.getElementById("form").reset();
   
     if (window.matchMedia("(width < 64rem)")) {
       toggleSelection("currenthunt", "");
@@ -86,16 +87,8 @@ function createCurrentHunt() {
   }
 
 function checkCurrentHunt() {
-  if (currentHunt != null) {
+  if (currentHunt != null)
     displayCurrentHunt(currentHunt);
-    //document.getElementById("nav-mobile-current").classList.remove("hidden");
-  }
-  // else {
-  //   if (!document.getElementById("nav-mobile-current").classList.contains("hidden"))
-  //     document.getElementById("nav-mobile-current").classList.toggle("hidden");
-  // }
-  // if (targets.length > 1)
-  //   document.getElementById("nav-change-current").classList.remove("hidden");
 }
 
 function showTargetNotes() {
@@ -136,57 +129,51 @@ function stopCurrentHunt() {
   //console.log(targets.indexOf(currentHunt));
 }
 
-function showList(listID, list, sID) {
+function changeHunt(pkmid) {
+  currentHunt = targets[pkmid];
+  localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
+  displayCurrentHunt(currentHunt);
+  document.getElementById("currenthunt").classList.toggle("hidden");
+  document.getElementById("changehunt").classList.toggle("hidden");
+}
+// HAVENT TESTED SHINY LIST YET
+function showPokemon(target, pkm, method, date, count, notes) {
+  displayCurrentHunt(target, pkm, method, date, count, notes);
+  if (document.getElementById("targetlist").classList.contains != "hidden")
+    document.getElementById("targetlist").classList.toggle("hidden");
+  else if (document.getElementById("shinylist").classList.contains != "hidden")
+    document.getElementById("shinylist").classList.toggle("hidden");
+  document.getElementById("showcase").classList.toggle("hidden");
+}
+
+function showList(listID, list, sID, change = false) {
   let htmlList = document.getElementById(listID);
   htmlList.innerHTML = "";
 
   if (list.length > 0) {
     list.forEach(pokemon => {
-      let li = document.createElement("li");
-      li.innerText = pokemon.pokemon;
-      htmlList.appendChild(li);
-    });
+        let btn = document.createElement("button");
+        btn.textContent = pokemon.pokemon;
+        btn.setAttribute("class", "w-40 h-10 mb-2 rounded-2xl bg-gray-400 text-white cursor-pointer hover:bg-susyblue");
+        
+        if (change) {
+          btn.addEventListener("click",  function() { changeHunt(pokemon.id); });
+        }
+        else {
+          btn.addEventListener("click",  function() { showPokemon(pokemon, "showpkmn", "showmethod", "showdate", "showcount", "shownotes"); });
+        }
+        let li = document.createElement("li");
+        li.appendChild(btn);
+        htmlList.appendChild(li);
+      });
   }
 
-  if (window.matchMedia("(width < 64rem)")) {
-      toggleSelection(sID);
-    }
-    else {
-      toggleBig("currenthunt");
-    }
-  
+  if (window.matchMedia("(max-width: 64rem)").matches)
+    toggleSelection(sID);
+  else
+    toggleBig(sID);
 }
 
-// document.getElementById("changehuntbtn").addEventListener("click", () => showList("targets", targets, "changehunt"));
-
-function changeTarget(pkmid) {
-  currentHunt = targets[pkmid];
-  localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
-  document.getElementById("s-change-hunt").classList.toggle("hidden");
-  displayCurrentHunt(currentHunt);
-  toggleSelection("s-current-hunt", "current hunt", false);
-}
-
-function showChangeHunt(listID, sID, headerTxt, changeBtn) {
-  let htmlList = document.getElementById(listID);
-  htmlList.innerHTML = "";
-
-  if (targets.length > 0) {
-    targets.forEach(pokemon => {
-      let btn = document.createElement("button");
-      btn.addEventListener("click", function() { changeTarget(pokemon.id); });
-      btn.setAttribute("class", "w-20 h-10 m-2 p-2 bg-gray-200 cursor-pointer");
-      btn.textContent = pokemon.pokemon;
-      let li = document.createElement("li");
-      li.appendChild(btn);
-      htmlList.appendChild(li);
-    });
-  }
-  if (!changeBtn) {
-    document.getElementById("s-current-hunt").classList.toggle("hidden");
-  }
-  toggleSelection(sID, headerTxt, changeBtn);
-}
 
 // -----------------------------------------------------
 
@@ -242,7 +229,6 @@ function enableDragIfWide(e) {
     if (mainContent) {
       dragElement(mainContent);
     }
-    console.log(e.matches);
   }
 }
 
