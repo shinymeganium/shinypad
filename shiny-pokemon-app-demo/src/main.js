@@ -1,6 +1,6 @@
 // npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
-// check if there is data and is it list
 
+// object that holds information about the target
 class Target {
   constructor() {
     this.id = 0;
@@ -10,6 +10,8 @@ class Target {
     this.notes = "";
     this.encounters = 0;
   }
+  // so every pokemon would have a unique id, whenever a new target is created
+  // store the id to local storage
   setID() {
     if (localStorage.getItem("currentID") != null)
       this.id = Number(localStorage.getItem("currentID")) + 1;
@@ -18,6 +20,7 @@ class Target {
   }
 }
 
+// get data from local storage or if the key is empty return an empty list/null
 function getSavedData(key, isList) {
   if (localStorage.getItem(key) != null)
       return JSON.parse(localStorage.getItem(key));
@@ -29,10 +32,12 @@ function getSavedData(key, isList) {
   }
 }
 
-let targets = getSavedData("targets", true); // ls key: targets
-let shinies = getSavedData("shinies", true); // ls key: shinies
+// set variable values
+let targets = getSavedData("targets", true);
+let shinies = getSavedData("shinies", true);
 let currentHunt = getSavedData("currentHunt", false);
 
+// toggle selections on small screen
 function toggleSelection(sID, navID = "navmobile") {
   document.getElementById(sID).classList.toggle("hidden");
   
@@ -43,11 +48,13 @@ function toggleSelection(sID, navID = "navmobile") {
   }
 }
 
+// toggle selections on bigger screen
 function toggleBig(sID) {
-  document.getElementById("maincontent").classList.toggle("xl:hidden");
+  document.getElementById("maincontent").classList.toggle("lg:hidden");
   document.getElementById(sID).classList.toggle("hidden");
 }
 
+// create a new target, collect the values from the form
 function createNewTarget() {
   let target = new Target();
   target.id = target.setID();
@@ -63,14 +70,18 @@ function createNewTarget() {
   return target;
 }
 
+// display the info of a target
 function displayCurrentHunt(target, pkm = "hunt-pkmn", method = "hunt-method", started = "hunt-started", count = "hunt-count", notes = "hunt-notes") {
-  document.getElementById(pkm).innerHTML = target.pokemon;
-  document.getElementById(method).innerHTML = target.method;
-  document.getElementById(started).innerHTML = target.started;
-  document.getElementById(count).innerHTML = target.encounters;
-  document.getElementById(notes).innerHTML = target.notes;
+  if (target != null) {
+    document.getElementById(pkm).innerHTML = target.pokemon;
+    document.getElementById(method).innerHTML = target.method;
+    document.getElementById(started).innerHTML = target.started;
+    document.getElementById(count).innerHTML = target.encounters;
+    document.getElementById(notes).innerHTML = target.notes;
+  }
 }
 
+// call the required functions to create a new target and display it in current hunt
 function createCurrentHunt() {
   let target = createNewTarget();
   displayCurrentHunt(target);
@@ -78,26 +89,27 @@ function createCurrentHunt() {
   document.getElementById("newhunt").classList.toggle("hidden");
   document.getElementById("form").reset();
   
-    if (window.matchMedia("(width < 64rem)")) {
+    if (window.matchMedia("(width < 72rem)"))
       toggleSelection("currenthunt", "");
-    }
-    else {
+    else
       toggleBig("currenthunt");
-    }
   }
 
+// called on page load, display current hunt
 function checkCurrentHunt() {
   if (currentHunt != null) {}
     displayCurrentHunt(currentHunt);
 
 }
 
+// toggle show notes in current hunt
 function showTargetNotes() {
   document.getElementById('hunt-show').classList.toggle('hidden');
   document.getElementById('hunt-hide').classList.toggle('hidden');
   document.getElementById('hunt-notes').classList.toggle('hidden');
 }
 
+// add or reduce encounters, save to ls to prevent data loss
 function changeCount(symbol) {
   if (currentHunt != null) {
     if (symbol == "-")
@@ -111,13 +123,12 @@ function changeCount(symbol) {
   }
 }
 
-//// broken doesnt load up the title and doesnt change the bg
+// stop the current hunt; remove target from targets list and add it to shinies list
 function stopCurrentHunt() {
   if (currentHunt != null) {
     shinies.push(currentHunt);
+    targets.splice(targets.findIndex(obj => obj.id === currentHunt.id), 1);
     localStorage.setItem("shinies", JSON.stringify(shinies));
-    let print1 = targets.splice(targets.indexOf(currentHunt.id), 1);
-    console.log(print1);
     localStorage.setItem("targets", JSON.stringify(targets));
     currentHunt = null;
     localStorage.removeItem("currentHunt");
@@ -128,18 +139,21 @@ function stopCurrentHunt() {
     document.getElementById("hunt-notes").innerHTML = "";
     document.getElementById("currenthunt").classList.toggle("hidden");
     document.getElementById("navmobile").classList.toggle("hidden");
-    document.getElementById("title").classList.toggle("hidden");document.getElementById("maincontent").classList.toggle("bg-susylightgray");
+    document.getElementById("title").classList.toggle("hidden");
+    document.getElementById("maincontent").classList.toggle("bg-susylightgray");
   }
 }
 
+// changes the current hunt
 function changeHunt(pkmid) {
-  currentHunt = targets[pkmid];
+  currentHunt = targets[targets.findIndex(obj => obj.id === pkmid)];
   localStorage.setItem("currentHunt", JSON.stringify(currentHunt));
   displayCurrentHunt(currentHunt);
   document.getElementById("currenthunt").classList.toggle("hidden");
   document.getElementById("changehunt").classList.toggle("hidden");
 }
-// HAVENT TESTED SHINY LIST YET
+
+// open showcase, toggle() doesnt work on list sections
 function showPokemon(target, pkm, method, date, count, notes) {
   displayCurrentHunt(target, pkm, method, date, count, notes);
   if (document.getElementById("targetlist").classList.contains != "hidden")
@@ -149,6 +163,7 @@ function showPokemon(target, pkm, method, date, count, notes) {
   document.getElementById("showcase").classList.toggle("hidden");
 }
 
+// shows targets and shinies lists as buttons or a message if a list is empty
 function showList(listID, list, sID, change = false) {
   let htmlList = document.getElementById(listID);
   htmlList.innerHTML = "";
@@ -173,14 +188,15 @@ function showList(listID, list, sID, change = false) {
   else
     htmlList.innerHTML = "nothing here!";
 
-  if (window.matchMedia("(max-width: 64rem)").matches)
+  if (window.matchMedia("(max-width: 72rem)").matches)
     toggleSelection(sID);
   else
     toggleBig(sID);
 }
 
-
-// -----------------------------------------------------
+// ----------------------------------------------------------------------
+// drag element code from w3schools after copilot modernized it
+// ----------------------------------------------------------------------
 
 // Modernized dragElement function using current standards and best practices
 function dragElement(elmnt) {
@@ -226,7 +242,7 @@ function dragElement(elmnt) {
 }
 
 // Use media query with modern syntax and listen for changes
-const mql = window.matchMedia("(width >= 64rem)");
+const mql = window.matchMedia("(width >= 72rem)");
 
 function enableDragIfWide(e) {
   if (e.matches) {
@@ -239,5 +255,3 @@ function enableDragIfWide(e) {
 
 enableDragIfWide(mql);
 mql.addEventListener('change', enableDragIfWide);
-
-// ---------------------------------- DEBUG FUNCTIONS ----------------------------------
