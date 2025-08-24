@@ -97,7 +97,7 @@ function createCurrentHunt() {
 
 // called on page load, display current hunt
 function checkCurrentHunt() {
-  if (currentHunt != null) {}
+  if (currentHunt != null)
     displayCurrentHunt(currentHunt);
 
 }
@@ -185,8 +185,11 @@ function showList(listID, list, sID, change = false) {
         htmlList.appendChild(li);
       });
   }
-  else
+  else {
+    htmlList.classList.add("font-sans");
+    htmlList.classList.add("text-lg");
     htmlList.innerHTML = "nothing here!";
+  }
 
   if (window.matchMedia("(max-width: 72rem)").matches)
     toggleSelection(sID);
