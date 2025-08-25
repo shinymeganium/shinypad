@@ -112,7 +112,7 @@
     </header>
     
     <!-- page content -->
-    <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center bg-cover lg:hidden lg:min-w-140 lg:max-h-190 lg:top-[5%] lg:bg-susylightgray lg:border lg:border-susygray">
+    <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center bg-cover lg:hidden lg:min-w-140 lg:max-w-145 lg:max-h-170 lg:top-[5%] lg:bg-susylightgray lg:border lg:border-susygray lg:overflow-auto xl:max-h-180">
 
       <!-- current hunt -->
       <section id="currenthunt" class="hidden z-10 pb-5 bg-susylightgray">
@@ -156,7 +156,7 @@
           </div><br>
 
           <!-- show/hide hunt notes -->
-          <div class="flex flex-col items-center gap-2 text-xl">
+          <div class="flex flex-col items-center gap-2 text-2xl">
               <div class="leading-8 rounded-4xl px-4 py-2 text-white bg-susyblue hover:bg-susybuttonhover">
                 <button id="hunt-show" class="cursor-pointer" onclick="showTargetNotes()">show notes</button>
                 <button id="hunt-hide" class="hidden cursor-pointer" onclick="showTargetNotes()">hide notes</button>
@@ -323,10 +323,13 @@
           <p class="text-left">
             The purpose of this app is to aid in shiny hunting on various Pokémon games. You'll set up your target Pokémon; its species, hunting method, when you started the hunt and some notes if you like.
           </p>
+          <p class="text-left pb-10">
+            You can open different parts of the app from their designated links. If you want to close a page, you can do so by pressing the X button on the right side of the header.
+          </p>
 
-          <h3 class="my-5 text-3xl karantina-bold">Future features</h3>
+          <h3 class="my-5 text-3xl text-left karantina-bold">Future features</h3>
           <p>
-            <ul class="list-disc pl-4 text-left">
+            <ul class="list-disc pl-4 pb-5 text-left">
               <li>Disable 'current hunt' and 'change current hunt' buttons in the navigation when there is no active hunt and there is only one Pokémon in the Targets list.</li>
               <li>On 'current hunt' page pictue of the target Pokémon is displayed over the gray circle.</li>
               <li>On 'current hunt' page the 'CAPTURED' button sends a warning before stopping the hunt.</li>
@@ -344,10 +347,9 @@
             </ul>
           </p>
           <p>
-            <h3 class="my-5 text-3xl karantina-bold">Known bugs</h3>
+            <h3 class="my-5 text-3xl text-left karantina-bold">Known bugs</h3>
             <ul class="list-disc pl-4 text-left">
-              <li>Section headers' don't stick at the top of the page.</li>
-              <li>'Info' page size changes when dragging it around.</li>
+              <li>Page headers' don't stick at the top of the page.</li>
               <li>Resizing the app window from large to small doesn't reset body's size correctly. The app needs to be refreshed after resizing.</li>
               <li>When on a large screen 'new hunt' form is hard to use because dragging sections is enabled.</li>
               <li>Stopping a hunt only works in small window sizes correctly. On bigger screens pressing the button doesn't display the app correctly afterwards.</li>

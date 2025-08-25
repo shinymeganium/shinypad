@@ -295,9 +295,6 @@
   .w-\[60\%\] {
     width: 60%;
   }
-  .w-\[70\%\] {
-    width: 70%;
-  }
   .w-\[80\%\] {
     width: 80%;
   }
@@ -607,6 +604,11 @@
       display: none;
     }
   }
+  .lg\:max-h-170 {
+    @media (width >= 64rem) {
+      max-height: calc(var(--spacing) * 170);
+    }
+  }
   .lg\:max-h-190 {
     @media (width >= 64rem) {
       max-height: calc(var(--spacing) * 190);
@@ -620,6 +622,21 @@
   .lg\:min-h-185 {
     @media (width >= 64rem) {
       min-height: calc(var(--spacing) * 185);
+    }
+  }
+  .lg\:max-w-10 {
+    @media (width >= 64rem) {
+      max-width: calc(var(--spacing) * 10);
+    }
+  }
+  .lg\:max-w-140 {
+    @media (width >= 64rem) {
+      max-width: calc(var(--spacing) * 140);
+    }
+  }
+  .lg\:max-w-145 {
+    @media (width >= 64rem) {
+      max-width: calc(var(--spacing) * 145);
     }
   }
   .lg\:max-w-250 {
@@ -652,9 +669,19 @@
       justify-items: center;
     }
   }
+  .lg\:overflow-auto {
+    @media (width >= 64rem) {
+      overflow: auto;
+    }
+  }
   .lg\:overflow-hidden {
     @media (width >= 64rem) {
       overflow: hidden;
+    }
+  }
+  .lg\:overflow-scroll {
+    @media (width >= 64rem) {
+      overflow: scroll;
     }
   }
   .lg\:border {
@@ -671,6 +698,11 @@
   .lg\:bg-susylightgray {
     @media (width >= 64rem) {
       background-color: var(--color-susylightgray);
+    }
+  }
+  .xl\:max-h-180 {
+    @media (width >= 80rem) {
+      max-height: calc(var(--spacing) * 180);
     }
   }
   .xl\:max-h-220 {
