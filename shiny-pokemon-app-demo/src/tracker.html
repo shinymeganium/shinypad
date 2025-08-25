@@ -112,7 +112,7 @@
     </header>
     
     <!-- page content -->
-    <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center bg-cover lg:hidden lg:min-w-140 lg:max-w-145 lg:max-h-170 lg:top-[5%] lg:bg-susylightgray lg:border lg:border-susygray lg:overflow-auto xl:max-h-180">
+    <main id="maincontent" class="min-w-full h-screen absolute z-9 text-susytext text-center bg-cover lg:hidden lg:min-w-140 lg:max-w-145 lg:max-h-170 lg:top-[5%] lg:bg-susylightgray lg:border lg:border-susygray lg:overflow-auto xl:max-h-190">
 
       <!-- current hunt -->
       <section id="currenthunt" class="hidden z-10 pb-5 bg-susylightgray">
@@ -161,7 +161,7 @@
                 <button id="hunt-show" class="cursor-pointer" onclick="showTargetNotes()">show notes</button>
                 <button id="hunt-hide" class="hidden cursor-pointer" onclick="showTargetNotes()">hide notes</button>
               </div>
-              <p id="hunt-notes" class="hidden w-fit h-8 leading-8 rounded-4xl px-4 bg-white"></p>
+              <p id="hunt-notes" class="hidden w-fit h-8 leading-8 rounded-4xl px-4 bg-white text-base font-sans"></p>
           </div>
 
           <!-- "pause" the hunt, same function as closing the section from section header -->
@@ -293,7 +293,7 @@
         </div>
 
         <!-- display info here -->
-        <div class="flex flex-col items-center text-lg">
+        <div class="flex flex-col items-center text-base">
           <p id="showpkmn" class="m-2 karantina-regular text-5xl text-white text-shadow-md text-shadow-susyblue"></p>
           <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Hunt method: <span id="showmethod"></span></p>
           <p class="w-[80%] h-8 leading-8 rounded-4xl m-2 px-4 bg-white border border-susyborder">Hunt started: <span id="showdate"></span></p>
