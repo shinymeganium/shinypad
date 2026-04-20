@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
+import { CapitalizeWord } from './UtilFuncs';
 
 export const SelectPokemon = () => {
   const [info, setInfo] = useState(null);
@@ -11,8 +12,8 @@ export const SelectPokemon = () => {
     const names = await response.json();
     
     return names.results.filter(p =>
-      p.name.includes(inputValue.toLowerCase())).map(p =>
-      ({ label: p.name, value: p.url }));
+      p.name.includes(inputValue)).map(p =>
+      ({ label: CapitalizeWord(p.name), value: p.url }));
   };
 
   // 2. Function to fetch specific data when a user clicks an option
@@ -49,7 +50,7 @@ export const SelectPokemon = () => {
       {info && !loading && (
         <div className="card">
           <img src={info.image} alt={info.name} />
-          <h2>{info.name.toUpperCase()}</h2>
+          <h2>{CapitalizeWord(info.name)}</h2>
         </div>
       )}
     </div>
