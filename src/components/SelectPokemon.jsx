@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
 import { CapitalizeWord } from './UtilFuncs';
 
-export const SelectPokemon = () => {
-  const [info, setInfo] = useState(null);
+export const SelectPokemon = ({ mon, setMon }) => {
   const [loading, setLoading] = useState(false);
 
   // 1. Function for the Search Dropdown (Names only)
@@ -24,10 +23,7 @@ export const SelectPokemon = () => {
       const response = await fetch(selected.value); // Fetch the specific URL
       const url = await response.json();
       
-      setInfo({
-        name: url.name,
-        image: url.sprites.front_default // Path to the image
-      });
+      {setMon(url);}
     }
     catch (err) {
       console.error("Failed to fetch details", err);
@@ -46,13 +42,6 @@ export const SelectPokemon = () => {
       />
 
       {loading && <p>Loading stats...</p>}
-
-      {info && !loading && (
-        <div className="card">
-          <img src={info.image} alt={info.name} />
-          <h2>{CapitalizeWord(info.name)}</h2>
-        </div>
-      )}
     </div>
   );
 };

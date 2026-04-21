@@ -1,24 +1,36 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { SelectPokemon } from "../components/SelectPokemon";
+import { SavePokemon } from "../components/UtilFuncs";
 
 export const NewHunt = () => {
   const [selectedMon, setSelectedMon] = useState(null);
-    
-  
+  let navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!selectedMon) {
+      alert("Select a Pokémon!");
+      return;
+    }
+
+    const success = SavePokemon(selectedMon);
+
+    if (success)
+      navigate("/continue");
+    else
+      alert("Starting a new hunt was not successful.");
+  }
 
   return (
-    <form className="flex flex-col gap-5" action="">
+    <form className="flex flex-col gap-10" onSubmit={onSubmit}>
 
-      <div className=" flex gap-5">
-        <label htmlFor="">pokémon</label>
-      </div>
+      <SelectPokemon mon={selectedMon} setMon={setSelectedMon} />
 
-      <SelectPokemon />
+      <button className="p-2 border" type="submit">start</button>
 
-      <button className="border" type="submit">start</button>
-
-      <Link className="block" to="/">back</Link>
+      <Link className="border" to="/">back</Link>
     </form>
   )
 }

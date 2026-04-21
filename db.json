@@ -1,6 +1,13 @@
 {
-  "$schema": "./node_modules/json-server/schema.json",
-  "current": [],
+  "current": [
+    {
+      "id": "1",
+      "name": "tentacruel",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/73.png",
+      "encounters": 0
+    }
+  ],
   "caught": [],
-  "targets": []
+  "targets": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
