@@ -1,9 +1,9 @@
-//import { useState, useEffect } from 'react'
-import { Link, Route, Routes } from 'react-router'
-import { Header } from './components/Header'
-import { Footer } from './components/Footer'
-import { CurrentHunt } from "./pages/CurrentHunt"
-import { NewHunt } from './pages/NewHunt'
+import { useEffect, useState } from "react";
+import { Link, Route, Routes } from "react-router";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { CurrentHunt } from "./pages/CurrentHunt";
+import { NewHunt } from "./pages/NewHunt";
 
 function App() {
 

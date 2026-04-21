@@ -10,7 +10,7 @@ export const CapitalizeWord = (word) => {
 export const SavePokemon = async (pokemon) => {
   const current = {
     "id": 1,
-    "name": pokemon.name,
+    "name": CapitalizeWord(pokemon.name),
     "img": pokemon.sprites.front_shiny,
     "encounters": 0
   };
@@ -22,4 +22,12 @@ export const SavePokemon = async (pokemon) => {
   });
 
   return response.ok;
+};
+
+export const DisplayPokemon = async (setPokemon, setImg) => {
+  const response = await fetch("http://localhost:5000/current/1");
+  const pokemon = await response.json();
+
+  setPokemon(pokemon.name);
+  setImg(pokemon.img);
 };
