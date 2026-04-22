@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { SelectPokemon } from "../components/SelectPokemon";
-import { SavePokemon } from "../components/UtilFuncs";
+import { startNewHunt } from "../components/UtilFuncs";
 
-export const NewHunt = ({setCurrent}) => {
+export const NewHunt = ({ current, setCurrent }) => {
   const [selectedMon, setSelectedMon] = useState(null);
   let navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (!selectedMon) {
@@ -15,22 +15,25 @@ export const NewHunt = ({setCurrent}) => {
       return;
     }
 
-    const success = SavePokemon(selectedMon, setCurrent);
+    const success = await startNewHunt(current, selectedMon, setCurrent)
 
-    if (success)
-      navigate("/continue");
+    if (success) {
+      setTimeout(() => {
+        navigate("/continue", {replace: true});
+      }, 1000);
+    }
     else
-      alert("Starting a new hunt was not successful.");
+      alert("There was a sync issue, but check the 'Continue' page!");
   }
 
   return (
-    <form className="flex flex-col gap-10" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-10">
 
-      <SelectPokemon setMon={setSelectedMon} />
+      <SelectPokemon setCurrent={setSelectedMon} />
 
-      <button className="p-2 border" type="submit">start</button>
+      <button className="p-2 border" type="button" onClick={onSubmit}>start</button>
 
       <Link className="border" to="/">back</Link>
     </form>
-  )
-}
+  );
+};

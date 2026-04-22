@@ -12,12 +12,6 @@ export const CurrentHunt = ({ current }) => {
   const add = () => setEncounters(prev => prev + 1);
   const subtract = () => encounters && setEncounters(prev => prev - 1);
 
-  useEffect(() => {
-    console.log(current)
-    setName(current.name);
-    setImg(current.img);
-    setLoading(false);
-  }, [])
 
   return (
     <div className="">

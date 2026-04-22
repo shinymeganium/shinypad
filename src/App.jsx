@@ -4,17 +4,13 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { CurrentHunt } from "./pages/CurrentHunt";
 import { NewHunt } from "./pages/NewHunt";
-import { CheckCurrent } from "./components/UtilFuncs";
+import { checkCurrent } from "./components/UtilFuncs";
 
-function App() {
+export default function App() {
   const [current, setCurrent] = useState(null);
-  const [hunting, setHunting] = useState(false);
 
   useEffect(() => {
-    setCurrent(CheckCurrent());
-
-    if (current !== null)
-      setHunting(true);
+    checkCurrent(setCurrent);
   }, []);
 
   return (
@@ -26,20 +22,18 @@ function App() {
         <Route path="/"
           element={
           <div className="flex flex-col">
-            {hunting && <Link to="/continue">continue hunt</Link>}
+            {current && <Link to="/continue">continue hunt</Link>}
             <Link to="/new">new hunt</Link>
-            <Link to="/new">my lists</Link>
-            <Link to="/lists">about</Link>
+            <Link to="/lists">my lists</Link>
+            <Link to="/about">about</Link>
           </div>
         }/>
 
         <Route path="/continue" element={<CurrentHunt current={current} />}/>
-        <Route path="/new" element={<NewHunt setCurrent={setCurrent} />}/>
+        <Route path="/new" element={<NewHunt current={current} setCurrent={setCurrent} />}/>
       </Routes>
 
       <Footer />
     </div>
-  )
+  );
 }
-
-export default App

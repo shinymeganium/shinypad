@@ -1,13 +1,26 @@
 {
   "current": [
     {
-      "name": "Squirtle",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png",
+      "name": "Voltorb",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/100.png",
       "encounters": 0,
-      "id": "ky6ngT1CNSI"
+      "id": "c7qnbfIYPSk"
     }
   ],
   "caught": [],
-  "targets": [],
+  "targets": [
+    {
+      "name": "Parasect",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/47.png",
+      "encounters": 0,
+      "id": "iblbVI4SYiE"
+    },
+    {
+      "name": "Wigglytuff",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/40.png",
+      "encounters": 0,
+      "id": "3TOX4R8vX18"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
