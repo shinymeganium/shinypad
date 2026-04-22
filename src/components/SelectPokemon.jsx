@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
 import { CapitalizeWord } from './UtilFuncs';
 
-export const SelectPokemon = ({ mon, setMon }) => {
+export const SelectPokemon = ({ setMon }) => {
   const [loading, setLoading] = useState(false);
 
   // 1. Function for the Search Dropdown (Names only)
@@ -41,7 +41,7 @@ export const SelectPokemon = ({ mon, setMon }) => {
         placeholder="Select a Pokemon..."
       />
 
-      {loading && <p>Loading stats...</p>}
+      {loading && <p>Loading...</p>}
     </div>
   );
 };

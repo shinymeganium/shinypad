@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { SelectPokemon } from "../components/SelectPokemon";
 import { SavePokemon } from "../components/UtilFuncs";
 
-export const NewHunt = () => {
+export const NewHunt = ({setCurrent}) => {
   const [selectedMon, setSelectedMon] = useState(null);
   let navigate = useNavigate();
 
@@ -15,7 +15,7 @@ export const NewHunt = () => {
       return;
     }
 
-    const success = SavePokemon(selectedMon);
+    const success = SavePokemon(selectedMon, setCurrent);
 
     if (success)
       navigate("/continue");
@@ -26,7 +26,7 @@ export const NewHunt = () => {
   return (
     <form className="flex flex-col gap-10" onSubmit={onSubmit}>
 
-      <SelectPokemon mon={selectedMon} setMon={setSelectedMon} />
+      <SelectPokemon setMon={setSelectedMon} />
 
       <button className="p-2 border" type="submit">start</button>
 

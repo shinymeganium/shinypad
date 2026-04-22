@@ -1,10 +1,10 @@
 {
   "current": [
     {
-      "id": "1",
-      "name": "Raichu",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/26.png",
-      "encounters": 0
+      "name": "Squirtle",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png",
+      "encounters": 0,
+      "id": "ky6ngT1CNSI"
     }
   ],
   "caught": [],

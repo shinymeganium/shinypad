@@ -7,27 +7,37 @@ export const CapitalizeWord = (word) => {
   return first.concat(rest);
 };
 
-export const SavePokemon = async (pokemon) => {
+export const CheckCurrent = async () => {
+  const respond = await fetch("http://localhost:5000/current");
+  const data = await respond.json();
+
+  if (data.length) {
+    return data;
+  }
+
+  return null;
+};
+
+export const SavePokemon = async (pokemon, setCurrent) => {
+  if (CheckCurrent().length) {
+    const response = await fetch("http://localhost:5000/current", {
+      method: "DELETE"
+    });
+  }
+
   const current = {
-    "id": 1,
     "name": CapitalizeWord(pokemon.name),
     "img": pokemon.sprites.front_shiny,
     "encounters": 0
   };
 
-  const response = await fetch("http://localhost:5000/current/1", {
-    method: "PUT",
+  const response = await fetch("http://localhost:5000/current", {
+    method: "POST",
     headers: {"Content-type": "application/json"},
     body: JSON.stringify(current)
   });
 
+  setCurrent(current);
   return response.ok;
 };
 
-export const DisplayPokemon = async (setPokemon, setImg) => {
-  const response = await fetch("http://localhost:5000/current/1");
-  const pokemon = await response.json();
-
-  setPokemon(pokemon.name);
-  setImg(pokemon.img);
-};
