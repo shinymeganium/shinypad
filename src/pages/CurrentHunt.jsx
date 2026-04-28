@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { Button } from "../components/Button";
 
 export const CurrentHunt = () => {
+  useEffect(() => {
+    console.log("in current hunt")
+  }, [])
+
   return (
     <div>
       <h3 className="">current hunt</h3>

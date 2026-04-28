@@ -5,22 +5,22 @@ export const shinyReducer = (state, action) => {
     case "SET_CURRENT_HUNT":
       return {
         ...state,
-        currentHunt: action.payload
+        current: action.payload
       };
     case "INCREMENT_ENCOUNTERS":
       return {
         ...state,
-        currentHunt: {
-          ...state.currentHunt,
-          encounters: state.currentHunt.encounters + 1
+        current: {
+          ...state.current,
+          encounters: state.current.encounters + 1
         }
       }
     case "DECRTEMENT_ENCOUNTERS":
       return {
         ...state,
-        currentHunt: {
-          ...state.currentHunt,
-          encounters: Math.max(0, state.currentHunt.encounters - 1)
+        current: {
+          ...state.current,
+          encounters: Math.max(0, state.current.encounters - 1)
         }
       }
     case "ADD_TO_TARGETS":
@@ -28,7 +28,7 @@ export const shinyReducer = (state, action) => {
         ...state,
         targets: [
           ...state.targets,
-          state.currentHunt
+          action.payload
         ]
       };
     case "FINISH_HUNT":
@@ -36,17 +36,16 @@ export const shinyReducer = (state, action) => {
         ...state,
         caught: [
           ...state.caught,
-          state.currentHunt
+          state.current
         ],
-        targets: [
-          state.targets.filter(p => p.id !== state.currentHunt.id)
-        ],
-        currentHunt: null
+        targets: state.targets.filter(
+          p => p.id !== state.current.id),
+        current: null
       }
     case "LOADING":
       return {
         ...state,
-        loading: true
+        loading: action.payload
       };
     default:
       return state;

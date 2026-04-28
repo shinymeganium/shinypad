@@ -1,26 +1,19 @@
 {
   "current": [
     {
-      "name": "Voltorb",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/100.png",
+      "name": "bulbasaur",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
       "encounters": 0,
-      "id": "c7qnbfIYPSk"
+      "id": "wwI-lLSvlxQ"
+    },
+    {
+      "name": "charmander",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/4.png",
+      "encounters": 0,
+      "id": "iIPFgnE41hU"
     }
   ],
   "caught": [],
-  "targets": [
-    {
-      "name": "Parasect",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/47.png",
-      "encounters": 0,
-      "id": "iblbVI4SYiE"
-    },
-    {
-      "name": "Wigglytuff",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/40.png",
-      "encounters": 0,
-      "id": "3TOX4R8vX18"
-    }
-  ],
+  "targets": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

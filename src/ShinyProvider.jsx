@@ -5,7 +5,7 @@ const ShinyStateContext = createContext(null);
 const ShinyDispatchContext = createContext(null);
 
 export const initialState = {
-  currentHunt: null,
+  current: null,
   targets: [],
   caught: [],
   loading: false
