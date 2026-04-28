@@ -1,16 +1,10 @@
 {
   "current": [
     {
-      "name": "bulbasaur",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
+      "name": "metapod",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/11.png",
       "encounters": 0,
-      "id": "wwI-lLSvlxQ"
-    },
-    {
-      "name": "charmander",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/4.png",
-      "encounters": 0,
-      "id": "iIPFgnE41hU"
+      "id": "lbkAS4wwZ5I"
     }
   ],
   "caught": [],

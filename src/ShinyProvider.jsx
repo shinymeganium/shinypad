@@ -8,7 +8,7 @@ export const initialState = {
   current: null,
   targets: [],
   caught: [],
-  loading: false
+  loading: true
 };
 
 export const ShinyProvider = ({ children }) => {

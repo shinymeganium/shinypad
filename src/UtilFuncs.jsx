@@ -80,9 +80,7 @@ export const setCurrent = async (state, dispatch, selected, navigate) => {
     dispatch({ type: "SET_CURRENT_HUNT", payload: newHunt });
     dispatch({ type: "LOADING", payload: false });
     
-    console.log("now redirecting")
-    navigate("/continue")
-    console.log("called redirect")
+    navigate("/continue");
 
   }
   catch (error) {

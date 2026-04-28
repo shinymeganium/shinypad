@@ -29,7 +29,7 @@ export default function App() {
             path="/"
             element={
               <>
-              <NavLink to="/continue">continue hunt</NavLink>
+              {!state.loading && state.current[0] && <NavLink to="/continue">continue hunt</NavLink>}
               <NavLink to="/new">new hunt</NavLink>
               <NavLink to="/lists">my pokemon</NavLink>
               <NavLink to="/about">about</NavLink>
