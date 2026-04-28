@@ -23,7 +23,7 @@ export default function App() {
     <div className="w-xl h-screen flex flex-col items-center gap-10 m-auto border">
       <Header />
 
-      <div className="w-full flex flex-col justify-center items-center flex-1 gap-2 border">
+      <div className="w-full flex flex-col justify-center items-center flex-1 gap-2">
         <Routes>
           <Route
             path="/"

@@ -88,3 +88,5 @@ export const setCurrent = async (state, dispatch, selected, navigate) => {
     dispatch({ type: "LOADING", payload: false });
   }
 };
+
+const removeCurrent = async () => {};
