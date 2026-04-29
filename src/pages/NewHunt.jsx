@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SelectPokemon } from "../components/SelectPokemon";
-import { Link, useNavigate } from "react-router";
-import { setCurrent } from "../UtilFuncs";
+import { useNavigate } from "react-router";
+import { pauseHunt, setCurrent } from "../UtilFuncs";
 import { useShinyDispatch, useShinyState } from "../ShinyProvider";
 
 export const NewHunt = () => {
@@ -20,8 +20,6 @@ export const NewHunt = () => {
       <SelectPokemon setSelected={setSelected} />
 
       <button className="p-2 border" type="button" onClick={onStart}>start</button>
-
-      <Link className="border" to="/">back</Link>
     </form>
   );
 };

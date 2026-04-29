@@ -1,11 +1,30 @@
 {
   "current": {
-    "id": 1777461259244,
-    "name": "misdreavus",
-    "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/200.png",
+    "id": 1777464602031,
+    "name": "squirtle",
+    "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png",
     "encounters": 0
   },
   "caught": [],
-  "targets": [],
+  "targets": [
+    {
+      "id": "gxIH3x4tACY",
+      "name": "bulbasaur",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
+      "encounters": 0
+    },
+    {
+      "id": "JLaGl5elniY",
+      "name": "mudsdale",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/750.png",
+      "encounters": 0
+    },
+    {
+      "id": "eltT-s7YUHc",
+      "name": "charmander",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/4.png",
+      "encounters": 0
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

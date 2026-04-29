@@ -81,6 +81,11 @@ export const pauseHunt = async (dispatch, data) => {
   try {
     const response = await fetch("http://localhost:5000/current", { method: "PUT", body: JSON.stringify({}) });
     dispatch({ type: "PAUSE_HUNT", payload: data });
+
+    const response2 = await fetch("http://localhost:5000/targets", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
     dispatch({ type: "LOADING", payload: false });
   }
   catch (error) {
