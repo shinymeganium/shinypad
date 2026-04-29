@@ -1,12 +1,10 @@
 {
-  "current": [
-    {
-      "name": "metapod",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/11.png",
-      "encounters": 0,
-      "id": "lbkAS4wwZ5I"
-    }
-  ],
+  "current": {
+    "id": 1777461259244,
+    "name": "misdreavus",
+    "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/200.png",
+    "encounters": 0
+  },
   "caught": [],
   "targets": [],
   "$schema": "./node_modules/json-server/schema.json"

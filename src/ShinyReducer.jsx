@@ -31,6 +31,15 @@ export const shinyReducer = (state, action) => {
           action.payload
         ]
       };
+    case "PAUSE_HUNT":
+      return {
+        ...state,
+        targets: [
+          ...targets,
+          action.payload
+        ],
+        current: null,
+      }
     case "FINISH_HUNT":
       return {
         ...state,

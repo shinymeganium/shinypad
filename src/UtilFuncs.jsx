@@ -53,12 +53,40 @@ export const getNames = async (url, input) => {
   }
 };
 
+// check if u can combine next two funcs
+const saveCurrentDb = async (url, data) => {
+  console.log(data)
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(data)
+  });
+};
+
 const saveToDb = async (url, data) => {
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(data)
   });
+};
+
+const removeFromDb = async (url, data) => {
+  
+};
+
+export const pauseHunt = async (dispatch, data) => {
+  dispatch({ type: "LOADING", payload: true });
+  
+  try {
+    const response = await fetch("http://localhost:5000/current", { method: "PUT", body: JSON.stringify({}) });
+    dispatch({ type: "PAUSE_HUNT", payload: data });
+    dispatch({ type: "LOADING", payload: false });
+  }
+  catch (error) {
+    console.error(error);
+    dispatch({ type: "LOADING", payload: false });
+  }
 };
 
 export const setCurrent = async (state, dispatch, selected, navigate) => {
@@ -70,12 +98,13 @@ export const setCurrent = async (state, dispatch, selected, navigate) => {
 
     const pokemon = await response.json();
     const newHunt = {
+      id: Date.now(),
       name: pokemon.name,
       img: pokemon.sprites.front_shiny,
       encounters: 0
     }
 
-    await saveToDb("http://localhost:5000/current", newHunt);
+    await saveCurrentDb("http://localhost:5000/current", newHunt);
 
     dispatch({ type: "SET_CURRENT_HUNT", payload: newHunt });
     dispatch({ type: "LOADING", payload: false });

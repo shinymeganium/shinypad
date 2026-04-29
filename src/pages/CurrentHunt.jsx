@@ -1,29 +1,48 @@
 import { useEffect } from "react";
 import { Button } from "../components/Button";
 import { useShinyDispatch, useShinyState } from "../ShinyProvider";
+import { pauseHunt } from "../UtilFuncs";
+import { useNavigate } from "react-router";
 
 export const CurrentHunt = () => {
   const state = useShinyState();
   const dispatch = useShinyDispatch();
+  const navigate = useNavigate();
+
+  const add = () => {
+    dispatch({ type: "INCREMENT_ENCOUNTERS", payload: state.current.count });
+  }
+
+  const dec = () => {
+    dispatch({ type: "DECRTEMENT_ENCOUNTERS", payload: state.current.count });
+  }
+
+  const pause = async () => {
+    await pauseHunt(dispatch, state.current);
+  };
 
   if (state.loading)
     return <div className="">loading...</div>;
 
-  if (!state.current[0])
-    return <div className="">wait</div>
+  if (!state.current.id)
+    navigate("/");
 
   return (
     <div>
       <h3 className="">current hunt</h3>
 
-      <img src={state.current[0].img} alt={state.current[0].name} />
+      <img src={state.current.img} alt={state.current.name} />
 
-      <h4 className="">{state.current[0].name}</h4>
+      <h4 className="">{state.current.name}</h4>
 
-      <span className="">{state.current[0].encounters}</span>
+      <span className="">{state.current.encounters}</span>
 
-      <Button txt="-" />
-      <Button txt="+" />
+      <div className="">
+        <Button txt="-" onClick={add} />
+        <Button txt="+" onClick={dec} />
+      </div>
+
+      <Button txt="pause hunt" onClick={pause} />
     </div>
   );
 };
