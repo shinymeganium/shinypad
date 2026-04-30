@@ -8,11 +8,13 @@ export const CurrentHunt = () => {
   const state = useShinyState();
   const dispatch = useShinyDispatch();
   const navigate = useNavigate();
+  const numBtn = "size-10 cursor-pointer border";
+  const funcBtn = "w-25 p-2 border";
 
   const add = () => {
     dispatch({ type: "INCREMENT_ENCOUNTERS", payload: state.current.count });
   }
-
+  
   const dec = () => {
     dispatch({ type: "DECRTEMENT_ENCOUNTERS", payload: state.current.count });
   }
@@ -21,6 +23,10 @@ export const CurrentHunt = () => {
     await pauseHunt(dispatch, state.current);
   };
 
+  const endHunt = async () => {
+    
+  }
+
   if (state.loading)
     return <div className="">loading...</div>;
 
@@ -28,7 +34,7 @@ export const CurrentHunt = () => {
     navigate("/");
 
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <h3 className="">current hunt</h3>
 
       <img src={state.current.img} alt={state.current.name} />
@@ -37,12 +43,15 @@ export const CurrentHunt = () => {
 
       <span className="">{state.current.encounters}</span>
 
-      <div className="">
-        <Button txt="-" onClick={add} />
-        <Button txt="+" onClick={dec} />
+      <div className="flex gap-10">
+        <Button txt="-" styles={numBtn} onClick={dec} />
+        <Button txt="+" styles={numBtn} onClick={add} />
       </div>
 
-      <Button txt="pause hunt" onClick={pause} />
+      <div className="flex flex-col gap-2">
+        <Button txt="pause hunt" styles={funcBtn} onClick={pause} />
+        {/* <Button txt="end hunt" styles={funcBtn} onClick={pause} /> */}
+      </div>
     </div>
   );
 };

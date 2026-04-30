@@ -55,7 +55,6 @@ export const getNames = async (url, input) => {
 
 // check if u can combine next two funcs
 const saveCurrentDb = async (url, data) => {
-  console.log(data)
   const response = await fetch(url, {
     method: "PUT",
     headers: { "Content-type": "application/json" },
@@ -94,10 +93,30 @@ export const pauseHunt = async (dispatch, data) => {
   }
 };
 
-export const setCurrent = async (state, dispatch, selected, navigate) => {
+export const endHunt = async (dispatch, data) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
+    const response = await fetch("http://localhost:5000/current", { method: "PUT", body: JSON.stringify({}) });
+
+    const response2 = await fetch("http://localhost:5000/caught", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    dispatch({ type: "FINISH_HUNT", payload: data });
+  }
+  catch (error) {
+
+  }
+};
+
+export const setCurrent = async (state, dispatch, selected, navigate) => {
+  dispatch({ type: "LOADING", payload: true });
+  
+  try {
+    // if (state.current.id)
+    //   await pauseHunt(dispatch, state.current);
+
     const response = await fetch(selected);
     if (!response.ok) throw new Error("Failed to fetch data...");
 
