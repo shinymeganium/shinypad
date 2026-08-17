@@ -1,5 +1,5 @@
 //import { ExampleScroll } from "./components/ExampleScroll";
-import { Menu } from "./components/pages/Menu";
+import { Menu } from "./views/Menu";
 
 export const App = () => {
   return (
@@ -12,9 +12,7 @@ export const App = () => {
         <Menu />
       </main>
 
-      <footer className="bg-gray-300">
-        dis footer yo
-      </footer>
+      <footer className="bg-gray-300">dis footer yo</footer>
     </div>
-  )
+  );
 };

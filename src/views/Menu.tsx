@@ -1,4 +1,4 @@
-import { MenuButton } from "../MenuButton";
+import { MenuButton } from "../components/MenuButton";
 
 export const Menu = () => {
   return (
@@ -13,4 +13,4 @@ export const Menu = () => {
       </div>
     </div>
   );
-}
+};
